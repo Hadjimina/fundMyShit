@@ -3,6 +3,7 @@ package com.example.philipp.fundmyshit.Activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.content.Context;
 
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 import com.example.philipp.fundmyshit.HelperClass.HelperClass;
@@ -28,7 +30,9 @@ import com.example.philipp.fundmyshit.Fragments.TwoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,7 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 helperClass.saveArray(getApplicationContext(),currentLessons,"currentLessons");*/
             }
         });
-        //SharedPreferences prefs = new
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.sessionUserID), 1); //write a method to obtain current user ID
+        editor.commit();
+
     }
 
     //Save currentLesson,BlackList & DoneLessons onPause

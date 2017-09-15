@@ -28,5 +28,7 @@
         <item>philipp</item>
     </string-array>
 
+    <string name="sessionUserID">sessionUserID</string>
+
 
 </resources>
