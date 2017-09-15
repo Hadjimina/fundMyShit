@@ -4,11 +4,12 @@ package com.example.philipp.fundmyshit.JavaClasses;
 
 public class User {
 
+    private String email;
     private String forename;
     private String surname;
-    private String email;
 
-    private long userID;
+
+    private int userID;
 
     //default constructor
     public User(){
@@ -23,11 +24,7 @@ public class User {
 
     }
 
-    public void setUserID(long ID){
-        this.userID = ID;
-    }
-
-    public long getUserID(){
+    public int getUserID(){
         return this.userID;
     }
     public String getForename(){

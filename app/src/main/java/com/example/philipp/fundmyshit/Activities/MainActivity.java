@@ -1,6 +1,7 @@
 package com.example.philipp.fundmyshit.Activities;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private ArrayList<Challenges> currentLessons,doneLessons;
     private HelperClass helperClass;
+    private int sessionUserID;
 
 
     @Override
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+/*
                 Challenges randLesson = generateRandomSportlesson(helperClass);
                 currentLessons.add(randLesson);
                 Toast.makeText(MainActivity.this, "You will be doing : "+randLesson.title, Toast.LENGTH_SHORT).show();
@@ -91,9 +93,10 @@ public class MainActivity extends AppCompatActivity {
                 //invoke fragment recyclerview update
                 OneFragment fragment = (OneFragment) adapter.getRegisteredFragment(0);
                 fragment.updateCards();
-                helperClass.saveArray(getApplicationContext(),currentLessons,"currentLessons");
+                helperClass.saveArray(getApplicationContext(),currentLessons,"currentLessons");*/
             }
         });
+        //SharedPreferences prefs = new
     }
 
     //Save currentLesson,BlackList & DoneLessons onPause
@@ -113,25 +116,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Generate random lesson
-    public Challenges generateRandomSportlesson(HelperClass helperClass){
+    /*public Challenges generateRandomSportlesson(HelperClass helperClass){
         //check for beer probability
         //TODO add settings button for beer
 
        /* if ( helperClass.beerQuestion(beerString)){
             return new Challenges(getApplicationContext(), "Beer","currentLessons");
 
-        }else {*/
+        }else {
         //Get lesson
-        String[] possibleLessons = getResources().getStringArray(R.array.sports_lessons_names);
+        String[] possibleLessons = getResources().getStringArray(R.array.names);
         int max = possibleLessons.length -1;
         int min = 0;
 
         Random r = new Random();
         int i = r.nextInt(max - min + 1) + min;
 
-        return new Challenges(getApplicationContext(), possibleLessons[i],"currentLessons");
-        //  }
-    }
+        //return new Challenges(getApplicationContext(), possibleLessons[i],"currentLessons");
+         }
+
+    }*/
 
 
     //Disable back button

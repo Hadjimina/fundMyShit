@@ -22,7 +22,7 @@ public class HelperClass {
 
         for(int i=0;i<size;i++)
         {
-            challenges.add(new Challenges(mCont,sp.getString("Status_" + i,null), arrayName));
+            //challenges.add(new Challenges(mCont,sp.getString("Status_" + i,null), arrayName));
         }
 
     }

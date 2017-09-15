@@ -75,8 +75,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.mTextViewTitle.setText(mDataset.get(position).title);
-        holder.mTextViewDesc.setText(mDataset.get(position).desc);
-        holder.mImageView.setImageResource(mDataset.get(position).coverImg);
+        //holder.mTextViewDesc.setText(mDataset.get(position).desc);
+        //holder.mImageView.setImageResource(mDataset.get(position).coverImg);
     }
 
     @Override
