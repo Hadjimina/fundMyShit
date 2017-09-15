@@ -23,8 +23,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="img_desc">Preview of the Sport</string>
 
-    <string-array
-        name="names">
+    <string-array name="names">
         <item>philipp</item>
     </string-array>
 

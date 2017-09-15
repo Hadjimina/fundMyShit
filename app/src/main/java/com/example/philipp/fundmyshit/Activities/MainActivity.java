@@ -100,10 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 helperClass.saveArray(getApplicationContext(),currentLessons,"currentLessons");*/
             }
         });
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(getString(R.string.sessionUserID), 1); //write a method to obtain current user ID
-        editor.commit();
+
 
     }
 
