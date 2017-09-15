@@ -18,12 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.philipp.fundmyshit.JavaClasses.Challenges;
-import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.Fragments.OneFragment;
-import com.example.philipp.fundmyshit.R;
 import com.example.philipp.fundmyshit.Fragments.ThreeFragment;
 import com.example.philipp.fundmyshit.Fragments.TwoFragment;
+import com.example.philipp.fundmyshit.HelperClass.HelperClass;
+import com.example.philipp.fundmyshit.JavaClasses.Challenges;
+import com.example.philipp.fundmyshit.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //fab setup & onclick
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else {*/
         //Get lesson
-        String[] possibleLessons = getResources().getStringArray(R.array.sports_lessons_names);
+        String[] possibleLessons = getResources().getStringArray(R.array.names);
         int max = possibleLessons.length -1;
         int min = 0;
 

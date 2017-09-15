@@ -21,6 +21,6 @@ public class Challenges {
         this.type = type;
 
         //automagically sets image
-        coverImg = title.equals("Ballett") ? Icons[0]:Icons[1];
+
     }
 }
