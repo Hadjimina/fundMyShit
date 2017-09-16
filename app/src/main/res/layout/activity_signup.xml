@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/background"
     tools:context="com.example.philipp.fundmyshit.activities.SignupActivity">
 
     <TextView
@@ -29,7 +29,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="Username"
-        android:ems="10"
+        android:ems="15"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:layout_below="@+id/new_account"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
@@ -40,7 +42,9 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:hint="Email"
-        android:ems="10"
+        android:ems="15"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:id="@+id/editEmail"
         android:layout_below="@+id/editVorname"
         android:layout_alignStart="@+id/editVorname"
@@ -51,7 +55,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="Password"
-        android:ems="10"
+        android:ems="15"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:layout_below="@+id/editEmail"
         android:layout_alignStart="@+id/editEmail"
         android:layout_marginTop="20dp"
@@ -62,7 +68,9 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="Password again"
-        android:ems="10"
+        android:ems="15"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:layout_below="@+id/editPassword"
         android:layout_alignStart="@+id/editPassword"
         android:layout_marginTop="20dp"
@@ -76,8 +84,13 @@
         android:layout_marginTop="30dp"
         android:layout_below="@+id/editCheckPassword"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
         android:id="@+id/button"
+        android:width="300dp"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        style="@style/Widget.AppCompat.Button.Borderless"
         />
 
     <TextView
@@ -118,6 +131,8 @@
         android:layout_alignTop="@+id/editPassword"
         android:layout_alignStart="@+id/editPassword"
         android:layout_marginTop="32dp"
+
+
         android:id="@+id/errorPassword2" />
 
 
