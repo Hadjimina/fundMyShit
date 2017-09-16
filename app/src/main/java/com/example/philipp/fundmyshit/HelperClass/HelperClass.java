@@ -1,8 +1,6 @@
 package com.example.philipp.fundmyshit.HelperClass;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -74,24 +72,6 @@ public class HelperClass extends Activity{
         return  returnString;
     }
 
-    //helper function to save to current challenges
-    public static boolean saveArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
-    {
-
-        SharedPreferences sp = mCont.getSharedPreferences(arrayName, MODE_PRIVATE);
-        SharedPreferences.Editor mEdit1 = sp.edit();
-
-        mEdit1.putInt(arrayName+" Status_size", challenges.size());
-
-        for(int i=0;i<challenges.size();i++)
-        {
-            mEdit1.remove("Status_" + i);
-            mEdit1.putString("Status_" + i, challenges.get(i).title);
-
-        }
-
-        return mEdit1.commit();
-    }
 
 
 
@@ -102,6 +82,12 @@ public class HelperClass extends Activity{
             String returnString = new getData().execute(url,typeOfReq).get();
             JSONArray jsonArray = new JSONArray(returnString);
             ArrayList<Challenges> feedChallenges = parseChallenges(jsonArray);
+
+            for (Challenges c : feedChallenges){
+                Log.i("asdf1", String.valueOf(c.challengeID));
+            }
+
+
             return feedChallenges;
 
         } catch (InterruptedException e) {
@@ -164,7 +150,11 @@ public class HelperClass extends Activity{
         for(int i = 0; i < arr.length(); i++){
             try {
                 JSONObject o = arr.getJSONObject(i);
-                Challenges c = new Challenges(o.getString("title"), o.getInt("id"), o.getInt("price"), o.getString("description"));
+                Log.i("duummyyy1",String.valueOf(o.getInt("id")));
+                Challenges c = new Challenges(o.getString("title"), o.getInt("challenger_id"), o.getInt("price"), o.getString("description"));
+                c.setChallengeID(o.getInt("id"));
+
+                Log.i("duummyyy2",String.valueOf(c.challengeID));
                 ch.add(c);
             } catch (JSONException e){
                 e.printStackTrace();

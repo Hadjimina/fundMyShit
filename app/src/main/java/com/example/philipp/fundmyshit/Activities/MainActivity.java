@@ -114,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
                         params.add(new BasicNameValuePair("description", descriptionString));
                         params.add(new BasicNameValuePair("price", shmecklesString));
                         params.add(new BasicNameValuePair("id", sessionUserID.toString()));
-                        HelperClass.doPostRequest(url, params);
+
+                        //????
+                        newChallenge.setChallengeID(Integer.parseInt(HelperClass.doPostRequest(url, params)));
 
                     }
                 })

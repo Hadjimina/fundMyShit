@@ -39,6 +39,7 @@ public class OneFragment extends Fragment{
                              Bundle savedInstanceState) {
 
 
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_one, container, false);
 
@@ -56,6 +57,7 @@ public class OneFragment extends Fragment{
 
         return rootView;
     }
+
 
     //update currentLessons list & notify adapter of the change
     public void updateCards(){
