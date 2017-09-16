@@ -21,6 +21,7 @@
         android:layout_marginTop="70dp"
         android:text="FundMyShit"
         android:textSize="16pt"
+        android:textColor="@color/white"
         android:textStyle="bold" />
 
     <EditText
