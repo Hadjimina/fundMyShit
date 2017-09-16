@@ -77,12 +77,13 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:background="@android:color/transparent"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:text="Login"
+        android:layout_marginTop="28dp"
         android:layout_below="@+id/errorPasswordLogin"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="36dp" />
+        android:layout_alignParentStart="true" />
 
 
     <Button
@@ -92,12 +93,13 @@
         android:width="300dp"
         android:textColor="@color/white"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:background="@android:color/transparent"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:text="@string/sign_up"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/login"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="25dp" />
+        android:layout_marginTop="16dp" />
 
 
 </RelativeLayout>
