@@ -33,13 +33,12 @@ import javax.net.ssl.HttpsURLConnection;
 public class HelperClass extends Activity{
 
 
+    //EXAMPLE get function, probably not needed anymore
     public void testFunctionGet(){
     String url = "https://fundmyshit.herokuapp.com/challenges";
 
-
         try {
             String returnString = new getData().execute(url).get();
-            Log.i("mystring",returnString);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -48,6 +47,7 @@ public class HelperClass extends Activity{
     }
 
 
+    //EXAMPLE post function, probably not needed anymore
     public void testFunctionPost(){
         String url = "https://fundmyshit.herokuapp.com/challenges";
 
@@ -64,7 +64,7 @@ public class HelperClass extends Activity{
 
         try {
             String paramString = getQuery(params);
-            Log.i("Params",paramString);
+
             new postData().execute(url, paramString);
 
         }catch (UnsupportedEncodingException e){
@@ -75,6 +75,30 @@ public class HelperClass extends Activity{
         }
     }
 
+    public void doPostRequest(String url,List<NameValuePair> params ){
+        try {
+            String paramString = getQuery(params);
+
+            new postData().execute(url, paramString);
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void doGetRequest(String url){
+        try {
+            String returnString = new getData().execute(url).get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 
     //helper function to save to current challenges
     public static boolean saveArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
@@ -98,7 +122,6 @@ public class HelperClass extends Activity{
 
 
     public ArrayList<Challenges> getFeedChallenges(){
-        //TODO do get request
         String url = "https://fundmyshit.herokuapp.com/challenges";
         String typeOfReq = "GET";
         try {
@@ -119,7 +142,6 @@ public class HelperClass extends Activity{
     }
 
     public ArrayList<Challenges> getMyFundedChallenges(Activity a){
-        //TODO do get request
 
         SharedPreferences sharedPref = a.getPreferences(Context.MODE_PRIVATE);
         int sessionUserID = sharedPref.getInt("sessionUserID", 1);
@@ -145,7 +167,6 @@ public class HelperClass extends Activity{
     }
 
     public ArrayList<Challenges> getPersonalChallenges(Activity a){
-        //TODO do get request
         SharedPreferences sharedPref = a.getPreferences(Context.MODE_PRIVATE);
         int sessionUserID = sharedPref.getInt("sessionUserID", 1);
         System.out.println("USERID: "+sessionUserID);
@@ -291,7 +312,7 @@ public class HelperClass extends Activity{
             result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
         }
 
-        String res = result.toString()/*.replaceAll("\\s","a")*/;
+        String res = result.toString().replaceAll("\\s","+");
         return res;
     }
 }
