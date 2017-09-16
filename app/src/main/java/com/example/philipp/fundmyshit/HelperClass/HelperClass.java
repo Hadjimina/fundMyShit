@@ -150,12 +150,11 @@ public class HelperClass extends Activity{
         for(int i = 0; i < arr.length(); i++){
             try {
                 JSONObject o = arr.getJSONObject(i);
-                Log.i("duummyyy1",String.valueOf(o.getInt("id")));
                 Challenges c = new Challenges(o.getString("title"), o.getInt("challenger_id"), o.getInt("price"), o.getString("description"));
                 c.currentPrice = o.getInt("current_price");
                 c.setChallengeID(o.getInt("id"));
 
-                Log.i("duummyyy2",String.valueOf(c.challengeID));
+
                 ch.add(c);
             } catch (JSONException e){
                 e.printStackTrace();
