@@ -1,16 +1,25 @@
 package com.example.philipp.fundmyshit.Activities;
 
-        import android.content.Context;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.R;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -62,9 +71,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 errorEmail.setVisibility(View.INVISIBLE);
                 errorPassword.setVisibility(View.INVISIBLE);
-                Integer userID = 0; // dummyFunction(stringEmail, stringPassword);
 
-                if (userID != null) {
+                String url = "https://fundmyshit.herokuapp.com/login?email=" + email +"&password=" + password;
+
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("email", stringEmail));
+                params.add(new BasicNameValuePair("password", stringPassword));
+
+
+                if (userID != 0) {
                     sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt(getString(R.string.sessionUserID), userID); //write a method to obtain current user ID

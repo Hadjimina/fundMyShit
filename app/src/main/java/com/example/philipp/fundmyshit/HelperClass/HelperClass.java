@@ -231,7 +231,7 @@ public class HelperClass extends Activity{
         }
     }
 
-    private class postData extends AsyncTask<String, String, String> {
+    public class postData extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... params) {
 
@@ -274,7 +274,7 @@ public class HelperClass extends Activity{
         }
     }
 
-    private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
+    public String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
     {
         StringBuilder result = new StringBuilder();
         boolean first = true;
