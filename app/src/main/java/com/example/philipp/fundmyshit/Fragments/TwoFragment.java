@@ -47,7 +47,8 @@ public class TwoFragment extends Fragment{
 
         //get currentLessons data from MainActivity
 
-        myFundedChallenges = helperClass.getMyFundedChallenges();
+
+        myFundedChallenges = helperClass.getMyFundedChallenges(getActivity());
         adapter = new MyAdapter(myFundedChallenges);
         rv.setAdapter(adapter);
 
