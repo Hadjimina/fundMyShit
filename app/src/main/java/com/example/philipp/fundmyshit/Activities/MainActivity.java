@@ -1,9 +1,7 @@
 package com.example.philipp.fundmyshit.Activities;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -30,6 +28,9 @@ import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 import com.example.philipp.fundmyshit.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private HelperClass helperClass;
     private ArrayList<Challenges> feedChallenges;
-    private int sessionUserID;
+    private static Integer sessionUserID;
 
 
     @Override
@@ -57,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         //get Helper class object
         this.helperClass = new HelperClass();
-
-        helperClass.testFunctionGet();
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        SharedPreferences sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
-        sessionUserID = sharedPref.getInt("sessionUserID", 0);
+        sessionUserID = getIntent().getIntExtra("userID", 1);
+
 
 
 
@@ -105,6 +103,14 @@ public class MainActivity extends AppCompatActivity {
                         Integer shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
                         Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
                         //TODO: Send challenge to database
+                        String url = "https://fundmyshit.herokuapp.com/challenges";
+                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+                        params.add(new BasicNameValuePair("title", titleString));
+                        params.add(new BasicNameValuePair("description", descriptionString));
+                        params.add(new BasicNameValuePair("price", shmecklesInt.toString()));
+                        params.add(new BasicNameValuePair("id", sessionUserID.toString()));
+                        HelperClass.doPostRequest(url, params);
+
                     }
                 })
                         .setNegativeButton("Chancel", new DialogInterface.OnClickListener() {
@@ -228,5 +234,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment getRegisteredFragment(int position) {
             return registeredFragments.get(position);
         }
+    }
+    public static int getSessionUserID(){
+        return sessionUserID;
     }
 }

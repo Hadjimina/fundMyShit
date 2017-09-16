@@ -47,7 +47,7 @@ public class ThreeFragment extends Fragment{
 
         //get currentLessons data from MainActivity
 
-        personalChallenges = helperClass.getPersonalChallenges();
+        personalChallenges = helperClass.getPersonalChallenges(getActivity());
         adapter = new MyAdapter(personalChallenges);
         rv.setAdapter(adapter);
 
@@ -60,7 +60,7 @@ public class ThreeFragment extends Fragment{
     //update currentLessons list & notify adapter of the change
     public void updateCards(){
         //get currentLessons data from MainActivity
-        personalChallenges = helperClass.getPersonalChallenges();
+        personalChallenges = helperClass.getPersonalChallenges(getActivity());
         adapter.notifyDataSetChanged();
 
     }

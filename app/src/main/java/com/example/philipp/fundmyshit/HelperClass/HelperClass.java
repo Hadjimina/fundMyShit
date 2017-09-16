@@ -6,12 +6,23 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.philipp.fundmyshit.Activities.MainActivity;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -19,13 +30,12 @@ import javax.net.ssl.HttpsURLConnection;
 public class HelperClass extends Activity{
 
 
+    //EXAMPLE get function, probably not needed anymore
     public void testFunctionGet(){
     String url = "https://fundmyshit.herokuapp.com/challenges";
-    String typeOfReq = "GET";
 
         try {
-            String returnString = new getData().execute(url,typeOfReq).get();
-            Log.i("mystring",returnString);
+            String returnString = new getData().execute(url).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -33,35 +43,35 @@ public class HelperClass extends Activity{
         }
     }
 
-    /*
-    public void testFunctionPost(){
-        String url = "https://fundmyshit.herokuapp.com/challenges";
-        String typeOfReq = "POST";
 
+
+    public static String doPostRequest(String url,List<NameValuePair> params ){
+        String returnString = "";
         try {
+            String paramString = getQuery(params);
 
-            String returnString = new postData().execute(url,typeOfReq).get();
-            Log.i("mystring",returnString);
+            returnString = new postData().execute(url, paramString).get();
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnString;
+    }
+
+    public String doGetRequest(String url){
+        String returnString = "";
+        try {
+            returnString =  new getData().execute(url).get();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-    }
-*/
-
-    //helperfunction to retrive all current challenges
-   public static void loadArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
-    {
-        SharedPreferences sp = mCont.getSharedPreferences(arrayName, MODE_PRIVATE);
-        challenges.clear();
-        int size = sp.getInt(arrayName+" Status_size", 0);
-
-        for(int i=0;i<size;i++)
-        {
-            //challenges.add(new Challenges(mCont,sp.getString("Status_" + i,null), arrayName));
-        }
-
+        return  returnString;
     }
 
     //helper function to save to current challenges
@@ -83,55 +93,84 @@ public class HelperClass extends Activity{
         return mEdit1.commit();
     }
 
-    public static ArrayList<Challenges> getFeedChallenges(){
-        //TODO do get request
 
-        int dummyID = 4;
-        int dummyPrice = 50;
-        String dummyTitle = "Dummy Challenge";
-        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
-        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
-        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
 
-        ArrayList<Challenges> feedChallenges = new ArrayList<>();
-        feedChallenges.add(dummyChallenge1);
-        feedChallenges.add(dummyChallenge2);
+    public ArrayList<Challenges> getFeedChallenges(){
+        String url = "https://fundmyshit.herokuapp.com/challenges";
+        String typeOfReq = "GET";
+        try {
+            String returnString = new getData().execute(url,typeOfReq).get();
+            JSONArray jsonArray = new JSONArray(returnString);
+            ArrayList<Challenges> feedChallenges = parseChallenges(jsonArray);
+            return feedChallenges;
 
-        return feedChallenges;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
-    public static ArrayList<Challenges> getMyFundedChallenges(){
-        //TODO do get request
+    public ArrayList<Challenges> getMyFundedChallenges(Activity a){
+        int sessionUserID = MainActivity.getSessionUserID();
+        System.out.println("FUNDED sessionID: "+sessionUserID);
+        String url = "https://fundmyshit.herokuapp.com/payments/" + sessionUserID + "/payed_challenges";
+        String typeOfReq = "GET";
+        try {
+            String returnString = new getData().execute(url,typeOfReq).get();
+            JSONArray jsonArray = new JSONArray(returnString);
+            ArrayList<Challenges> myFundedChallenges = parseChallenges(jsonArray);
+            return myFundedChallenges;
 
-        int dummyID = 4;
-        int dummyPrice = 50;
-        String dummyTitle = "Dummy Funded";
-        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
-        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
-        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
 
-        ArrayList<Challenges> myFundedChallenges = new ArrayList<>();
-        myFundedChallenges.add(dummyChallenge1);
-        myFundedChallenges.add(dummyChallenge2);
-
-        return myFundedChallenges;
     }
 
-    public static ArrayList<Challenges> getPersonalChallenges(){
-        //TODO do get request
+    public ArrayList<Challenges> getPersonalChallenges(Activity a){
+        int sessionUserID = MainActivity.getSessionUserID();
+        String url = "https://fundmyshit.herokuapp.com/users/" + sessionUserID + "/challenges";
+        String typeOfReq = "GET";
 
-        int dummyID = 4;
-        int dummyPrice = 50;
-        String dummyTitle = "Personal Challenges";
-        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
-        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
-        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+        try {
+            String returnString = new getData().execute(url,typeOfReq).get();
+            JSONArray jsonArray = new JSONArray(returnString);
+            ArrayList<Challenges> personalChallenges = parseChallenges(jsonArray);
+            return personalChallenges;
 
-        ArrayList<Challenges> personalChallenges = new ArrayList<>();
-        personalChallenges.add(dummyChallenge1);
-        personalChallenges.add(dummyChallenge2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-        return personalChallenges;
+    private ArrayList<Challenges> parseChallenges(JSONArray arr){
+        ArrayList<Challenges> ch = new ArrayList<>();
+
+        for(int i = 0; i < arr.length(); i++){
+            try {
+                JSONObject o = arr.getJSONObject(i);
+                Challenges c = new Challenges(o.getString("title"), o.getInt("id"), o.getInt("price"), o.getString("description"));
+                ch.add(c);
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return ch;
     }
 
 
@@ -141,7 +180,6 @@ public class HelperClass extends Activity{
         protected String doInBackground(String... params) {
 
             String urlValue = params[0];
-            String typeOfReq = params[1];
 
             URL url;
             HttpsURLConnection connection;
@@ -152,8 +190,7 @@ public class HelperClass extends Activity{
                 url = new URL(urlValue);
                 connection = (HttpsURLConnection) url.openConnection();
                 connection.setDoInput(true);
-                connection.setRequestMethod(typeOfReq);
-                Log.i("Status", String.valueOf(connection.getResponseCode()));
+                connection.setRequestMethod("GET");
 
                 BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line;
@@ -164,7 +201,7 @@ public class HelperClass extends Activity{
 
             }catch (Exception e){
                 e.printStackTrace();
-                Log.e("ERROR", "error in url conncection");
+                Log.e("ERROR", "error in get");
             }
 
             return result.toString();
@@ -180,59 +217,70 @@ public class HelperClass extends Activity{
 
         }
     }
-/*
-    private class postData extends AsyncTask<String, String, String> {
 
-        // these Strings / or String are / is the parameters of the task, that can be handed over via the excecute(params) method of AsyncTask
+    public static class postData extends AsyncTask<String, String, String> {
+
         protected String doInBackground(String... params) {
 
             String urlValue = params[0];
-            String typeOfReq = params[1];
+            String urlParameters = params[1];
+            Log.i("params",urlParameters);
 
-            URL url;
-            HttpsURLConnection connection;
             StringBuilder result= new StringBuilder();
-            try{
+            try {
 
+                URL url = new URL(urlValue);
+                URLConnection conn = url.openConnection();
 
-                url = new URL(urlValue);
-                connection = (HttpsURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                //connection.setDoOutput(true);
-                connection.setRequestMethod(typeOfReq);
-                connection.setInstanceFollowRedirects(false);
+                conn.setDoOutput(true);
 
+                OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("title", "dummy title")
-                        .appendQueryParameter("description", "dummy desc")
-                        .appendQueryParameter("price", "500")
-                        .appendQueryParameter("user_id", "5");
-                String query = builder.build().getEncodedQuery();
-
-                OutputStream os = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
+                writer.write(urlParameters);
                 writer.flush();
-                writer.close();
-                os.close();
 
-                connection.connect();
+                String line;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+                writer.close();
+                reader.close();
+
 
             }catch (Exception e){
                 e.printStackTrace();
-                Log.e("ERROR", "error in url conncection");
+                Log.e("ERROR","error in post");
             }
 
             return result.toString();
-        }
-
-
+            }
 
         // the onPostexecute method receives the return type of doInBackGround()
         protected void onPostExecute(String result) {
 
         }
-    }*/
+    }
+
+    public static String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
+    {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        for (NameValuePair pair : params)
+        {
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+        }
+
+        String res = result.toString().replaceAll("\\s","+");
+        return res;
+    }
 }
