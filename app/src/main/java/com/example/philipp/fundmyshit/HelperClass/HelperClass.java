@@ -80,6 +80,8 @@ public class HelperClass extends Activity{
         String typeOfReq = "GET";
         try {
             String returnString = new getData().execute(url,typeOfReq).get();
+            System.out.println("RETURNSTRING: "+returnString);
+
             JSONArray jsonArray = new JSONArray(returnString);
             ArrayList<Challenges> feedChallenges = parseChallenges(jsonArray);
 
@@ -151,7 +153,6 @@ public class HelperClass extends Activity{
         for(int i = 0; i < arr.length(); i++){
             try {
                 JSONObject o = arr.getJSONObject(i);
-                System.out.println("JSONOBJECT: "+o.toString());
                 Challenges c = new Challenges(o.getString("title"), o.getInt("challenger_id"), o.getInt("price"), o.getString("description"));
                 c.currentPrice = o.getInt("current_price");
                 c.setChallengeID(o.getInt("id"));
