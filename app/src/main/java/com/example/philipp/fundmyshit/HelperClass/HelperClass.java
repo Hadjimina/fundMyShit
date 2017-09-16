@@ -8,10 +8,18 @@ import android.util.Log;
 
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -21,10 +29,10 @@ public class HelperClass extends Activity{
 
     public void testFunctionGet(){
     String url = "https://fundmyshit.herokuapp.com/challenges";
-    String typeOfReq = "GET";
+
 
         try {
-            String returnString = new getData().execute(url,typeOfReq).get();
+            String returnString = new getData().execute(url).get();
             Log.i("mystring",returnString);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -33,36 +41,34 @@ public class HelperClass extends Activity{
         }
     }
 
-    /*
+
     public void testFunctionPost(){
         String url = "https://fundmyshit.herokuapp.com/challenges";
-        String typeOfReq = "POST";
+
+        //Add all your parameters to be sent here
+        //this example is for a challenge
+        //ATTENTION TAKE CARE TO PUT AVAILABLE USER_IDs
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("title", "Dummy"));
+        params.add(new BasicNameValuePair("description", "Dummy description"));
+        params.add(new BasicNameValuePair("price", "43"));
+        params.add(new BasicNameValuePair("user_id", "5"));
+
+
 
         try {
+            String paramString = getQuery(params);
+            Log.i("Params",paramString);
+            new postData().execute(url, paramString);
 
-            String returnString = new postData().execute(url,typeOfReq).get();
-            Log.i("mystring",returnString);
-        } catch (InterruptedException e) {
+        }catch (UnsupportedEncodingException e){
             e.printStackTrace();
-        } catch (ExecutionException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-*/
 
-    //helperfunction to retrive all current challenges
-   public static void loadArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
-    {
-        SharedPreferences sp = mCont.getSharedPreferences(arrayName, MODE_PRIVATE);
-        challenges.clear();
-        int size = sp.getInt(arrayName+" Status_size", 0);
-
-        for(int i=0;i<size;i++)
-        {
-            //challenges.add(new Challenges(mCont,sp.getString("Status_" + i,null), arrayName));
-        }
-
-    }
 
     //helper function to save to current challenges
     public static boolean saveArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
@@ -141,7 +147,7 @@ public class HelperClass extends Activity{
         protected String doInBackground(String... params) {
 
             String urlValue = params[0];
-            String typeOfReq = params[1];
+
 
             URL url;
             HttpsURLConnection connection;
@@ -152,7 +158,7 @@ public class HelperClass extends Activity{
                 url = new URL(urlValue);
                 connection = (HttpsURLConnection) url.openConnection();
                 connection.setDoInput(true);
-                connection.setRequestMethod(typeOfReq);
+                connection.setRequestMethod("GET");
                 Log.i("Status", String.valueOf(connection.getResponseCode()));
 
                 BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -180,59 +186,68 @@ public class HelperClass extends Activity{
 
         }
     }
-/*
+
     private class postData extends AsyncTask<String, String, String> {
 
-        // these Strings / or String are / is the parameters of the task, that can be handed over via the excecute(params) method of AsyncTask
         protected String doInBackground(String... params) {
 
             String urlValue = params[0];
-            String typeOfReq = params[1];
+            String urlParameters = params[1];
+            Log.i("params",urlParameters);
 
-            URL url;
-            HttpsURLConnection connection;
-            StringBuilder result= new StringBuilder();
-            try{
+            try {
+                //Log.i("params",urlParameters);
+                //String urlParameters = "title=woot&description=b&price=500&user_id=5";
+                URL url = new URL(urlValue);
+                URLConnection conn = url.openConnection();
 
+                conn.setDoOutput(true);
 
-                url = new URL(urlValue);
-                connection = (HttpsURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                //connection.setDoOutput(true);
-                connection.setRequestMethod(typeOfReq);
-                connection.setInstanceFollowRedirects(false);
+                OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 
-
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("title", "dummy title")
-                        .appendQueryParameter("description", "dummy desc")
-                        .appendQueryParameter("price", "500")
-                        .appendQueryParameter("user_id", "5");
-                String query = builder.build().getEncodedQuery();
-
-                OutputStream os = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
+                writer.write(urlParameters);
                 writer.flush();
+
+                String line;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
                 writer.close();
-                os.close();
-
-                connection.connect();
-
+                reader.close();
             }catch (Exception e){
                 e.printStackTrace();
-                Log.e("ERROR", "error in url conncection");
+                Log.e("ERROR","error in post");
             }
 
-            return result.toString();
-        }
-
-
+            return "hello";
+            }
 
         // the onPostexecute method receives the return type of doInBackGround()
         protected void onPostExecute(String result) {
 
         }
-    }*/
+    }
+
+    private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
+    {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        for (NameValuePair pair : params)
+        {
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+        }
+
+        String res = result.toString()/*.replaceAll("\\s","a")*/;
+        return res;
+    }
 }

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //get Helper class object
         this.helperClass = new HelperClass();
 
-        helperClass.testFunctionGet();
+        helperClass.testFunctionPost();
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
