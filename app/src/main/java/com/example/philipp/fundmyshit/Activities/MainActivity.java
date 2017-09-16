@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
         //fab setup & onclick
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        final EditText title_input = (EditText) findViewById(R.id.title_input);
+        final EditText description = (EditText) findViewById(R.id.description);
+        final EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO change dummyID to correct id (from shared preference)
@@ -93,12 +96,10 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText title_input = (EditText) findViewById(R.id.title_input);
-                        EditText description = (EditText) findViewById(R.id.description);
-                        EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
+
                         String titleString = title_input.getText().toString();
                         String descriptionString = description.getText().toString();
-                        int shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
+                        Integer shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
                         Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
                         //TODO: Send challenge to database
                     }
