@@ -1,6 +1,8 @@
 package com.example.philipp.fundmyshit.Activities;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -9,13 +11,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.philipp.fundmyshit.Fragments.OneFragment;
 import com.example.philipp.fundmyshit.Fragments.ThreeFragment;
@@ -67,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
+        SharedPreferences sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
+        sessionUserID = sharedPref.getInt("sessionUserID", 0);
+
 
 
         //fab setup & onclick
@@ -74,6 +82,24 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO change dummyID to correct id (from shared preference)
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+
+                builder.setTitle("New challenge")
+                        .setView(inflater.inflate(R.layout.dialog_new_challenge, null));
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                EditText title = (EditText) findViewById(R.id.title);
+                EditText description = (EditText) findViewById(R.id.description);
+                EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
+                String titleString = title.getText().toString();
+                String descriptionString = description.getText().toString();
+                int shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
+                Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
+                //TODO: Send challenge to database
 
 
             }
