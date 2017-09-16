@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:text="New account"
         android:textSize="16pt"
-        android:background="@color/colorAccent"
+        android:textColor="@color/white"
         android:textStyle="bold"/>
 
     <EditText
@@ -52,8 +52,8 @@
         android:inputType="textPassword"
         android:hint="Password"
         android:ems="10"
-        android:layout_below="@+id/editName"
-        android:layout_alignStart="@+id/editName"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignStart="@+id/editEmail"
         android:layout_marginTop="20dp"
         android:id="@+id/editPassword" />
 
