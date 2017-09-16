@@ -2,7 +2,12 @@ package com.example.philipp.fundmyshit.JavaClasses;
 
 public class Challenges {
     public String title,description, videoLink;
+<<<<<<< HEAD
     public int userID, price, currentPrice, challengeID;
+=======
+    public int userID, price, currentPrice;
+
+>>>>>>> 7fb74982424f9c516be9ae55f1aceada27429ced
 
 
     public Challenges(String title, int userID, int price, String description){

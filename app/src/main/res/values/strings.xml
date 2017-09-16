@@ -23,11 +23,15 @@
     <string name="sign_up">Sign Up</string>
     <string name="img_desc">Preview of the Sport</string>
 
-    <string-array
-        name="names">
+    <string-array name="names">
         <item>philipp</item>
     </string-array>
 
+<<<<<<< HEAD
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla."</string>
+=======
+    <string name="sessionUserID">sessionUserID</string>
+
+>>>>>>> 7fb74982424f9c516be9ae55f1aceada27429ced
 
 </resources>
