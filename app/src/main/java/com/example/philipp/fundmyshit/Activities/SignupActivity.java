@@ -98,19 +98,22 @@ public class SignupActivity extends AppCompatActivity {
 
                 //Load the data to the database.
                 if(noErrors){
-                    String url = "https://fundmyshit.herokuapp.com/users?email=" + email + "&password=" + password +"&username=" +nameString;
+                    String url = "https://fundmyshit.herokuapp.com/users";
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
                     params.add(new BasicNameValuePair("email", emailString));
                     params.add(new BasicNameValuePair("password", passwordString));
                     params.add(new BasicNameValuePair("username", nameString));
                     int userID = Integer.parseInt(HelperClass.doPostRequest(url, params));
+                    System.out.println("userID: "+userID);
                     SharedPreferences sharedPref = SignupActivity.this.getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt(getString(R.string.sessionUserID), userID); //write a method to obtain current user ID
+                    editor.putInt("sessionUserID", userID); //write a method to obtain current user ID
                     editor.commit();
+                    System.out.println("sharedUserID: "+sharedPref.getInt("sessionUserID", 1));
 
-                    startActivity(new Intent(v.getContext(), MainActivity.class));
-
+                    Intent intent = new Intent(v.getContext(),MainActivity.class);
+                    intent.putExtra("userID", userID);
+                    startActivity(intent);
                 }
 
 

@@ -1,9 +1,7 @@
 package com.example.philipp.fundmyshit.Activities;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
     private HelperClass helperClass;
     private ArrayList<Challenges> feedChallenges;
-    private int sessionUserID;
+    private static int sessionUserID;
 
 
     @Override
@@ -73,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        SharedPreferences sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
-        sessionUserID = sharedPref.getInt("sessionUserID", 0);
+        sessionUserID = getIntent().getIntExtra("userID", 1);
+
 
 
 
@@ -225,5 +223,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment getRegisteredFragment(int position) {
             return registeredFragments.get(position);
         }
+    }
+    public static int getSessionUserID(){
+        return sessionUserID;
     }
 }

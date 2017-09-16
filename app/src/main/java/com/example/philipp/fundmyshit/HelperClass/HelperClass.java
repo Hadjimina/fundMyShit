@@ -6,16 +6,13 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.philipp.fundmyshit.Activities.MainActivity;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 
-
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -47,35 +44,8 @@ public class HelperClass extends Activity{
     }
 
 
-    //EXAMPLE post function, probably not needed anymore
-    public void testFunctionPost(){
-        String url = "https://fundmyshit.herokuapp.com/challenges";
 
-        //Add all your parameters to be sent here
-        //this example is for a challenge
-        //ATTENTION TAKE CARE TO PUT AVAILABLE USER_IDs
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("title", "Dummy"));
-        params.add(new BasicNameValuePair("description", "Dummy description"));
-        params.add(new BasicNameValuePair("price", "43"));
-        params.add(new BasicNameValuePair("user_id", "5"));
-
-
-
-        try {
-            String paramString = getQuery(params);
-
-            new postData().execute(url, paramString);
-
-        }catch (UnsupportedEncodingException e){
-            e.printStackTrace();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String doPostRequest(String url,List<NameValuePair> params ){
+    public static String doPostRequest(String url,List<NameValuePair> params ){
         String returnString = "";
         try {
             String paramString = getQuery(params);
@@ -146,11 +116,8 @@ public class HelperClass extends Activity{
     }
 
     public ArrayList<Challenges> getMyFundedChallenges(Activity a){
-
-        SharedPreferences sharedPref = a.getPreferences(Context.MODE_PRIVATE);
-        int sessionUserID = sharedPref.getInt("sessionUserID", 1);
-        System.out.println("USERID: "+sessionUserID);
-
+        int sessionUserID = MainActivity.getSessionUserID();
+        System.out.println("FUNDED sessionID: "+sessionUserID);
         String url = "https://fundmyshit.herokuapp.com/payments/" + sessionUserID + "/payed_challenges";
         String typeOfReq = "GET";
         try {
@@ -171,10 +138,7 @@ public class HelperClass extends Activity{
     }
 
     public ArrayList<Challenges> getPersonalChallenges(Activity a){
-        SharedPreferences sharedPref = a.getPreferences(Context.MODE_PRIVATE);
-        int sessionUserID = sharedPref.getInt("sessionUserID", 1);
-        System.out.println("USERID: "+sessionUserID);
-
+        int sessionUserID = MainActivity.getSessionUserID();
         String url = "https://fundmyshit.herokuapp.com/users/" + sessionUserID + "/challenges";
         String typeOfReq = "GET";
 
