@@ -2,6 +2,7 @@ package com.example.philipp.fundmyshit.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +78,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mTitle.setText(currentChallenge.title);
         holder.mDesc.setText(currentChallenge.description);
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
+
+        if(MainActivity.getSessionUserID() == currentChallenge.userID){
+            holder.mPledgeButton.setText("Upload Video");
+        }
+        if(MainActivity.getSessionUserID() == currentChallenge.userID && currentChallenge.currentPrice < currentChallenge.price){
+            holder.mPledgeButton.setEnabled(false);
+            holder.mPledgeButton.setTextColor(Color.parseColor("#444b54"));
+        }
 
 
 

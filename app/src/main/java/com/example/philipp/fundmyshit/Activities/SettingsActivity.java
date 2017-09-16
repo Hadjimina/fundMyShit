@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.philipp.fundmyshit.R;
@@ -19,13 +18,12 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        CheckBox beer = (CheckBox)findViewById(R.id.checkBox);
 
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myChildToolbar);
         ActionBar ab = getSupportActionBar();
         TextView name = (TextView) findViewById(R.id.username);
-        name.setText();
+
         ab.setDisplayHomeAsUpEnabled(true);
 
 
