@@ -75,11 +75,12 @@ public class HelperClass extends Activity{
         }
     }
 
-    public static String doPostRequest(String url,List<NameValuePair> params ){
+    public String doPostRequest(String url,List<NameValuePair> params ){
+        String returnString = "";
         try {
             String paramString = getQuery(params);
 
-            return new postData().execute(url, paramString).get();
+            returnString = new postData().execute(url, paramString).get();
 
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
@@ -87,19 +88,20 @@ public class HelperClass extends Activity{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return returnString;
     }
 
     public String doGetRequest(String url){
+        String returnString = "";
         try {
-            return new getData().execute(url).get();
+            returnString =  new getData().execute(url).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        return null;
+        return  returnString;
     }
 
     //helper function to save to current challenges
