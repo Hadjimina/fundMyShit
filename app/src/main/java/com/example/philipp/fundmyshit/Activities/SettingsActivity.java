@@ -21,11 +21,14 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(myChildToolbar);
         ActionBar ab = getSupportActionBar();
         TextView name = (TextView) findViewById(R.id.username);
-        name.setText();
+        name.setText("Matt");
         ab.setDisplayHomeAsUpEnabled(true);
 
 
-*/
+        TextView balance = (TextView) findViewById(R.id.balance);
+        balance.setText(100);
+
+
 
     }
 }
