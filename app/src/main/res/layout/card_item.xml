@@ -1,25 +1,51 @@
+
+
 <android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="8dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="290dp"
     android:id="@+id/card_view"
     style="@style/MyCardViewStyle" >
 
+        android:layout_width="288dp"
+        android:layout_height="78dp"
+        android:orientation="horizontal">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="48dp"
+        android:background="#000" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/avatar1"
+        android:layout_marginTop="-76dp"
+        android:layout_gravity="center"
+        app:border_width="2dp"
+        app:border_color="#FF000000"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp">
+
 
     <TextView
         android:text="Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="normal|bold"
+        android:layout_marginTop="30dp"
         android:id="@+id/title"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:text="@string/lorem_ipsum"
@@ -28,9 +54,11 @@
         android:layout_below="@id/title"
         android:textStyle="normal"
         android:id="@+id/desc"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:maxLength="150"
-        android:layout_marginTop="8dp"/>
+        android:background="#05dad5d5"
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,18 +72,24 @@
             android:layout_alignParentEnd="true" />
 
         <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Pledge"
-            android:textColor="@color/colorAccent"
+            android:id="@+id/pledgeButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/priceFraction"
+            android:layout_alignBottom="@+id/priceFraction"
+            android:layout_marginEnd="154dp"
+            android:layout_marginLeft="-10dp"
+            android:layout_toStartOf="@+id/priceFraction"
             android:paddingLeft="-8dp"
-           style="@style/Widget.AppCompat.Button.Borderless"
-           android:id="@+id/pledgeButton"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
-
+            android:text="Pledge"
+            android:textColor="@color/colorAccent" />
 
     </RelativeLayout>
 
 
+
+
+
 </android.support.v7.widget.CardView>
+
