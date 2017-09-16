@@ -103,7 +103,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 builder.setPositiveButton("Fund", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        
+
                         Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
 
                         int pos = holder.getAdapterPosition();
