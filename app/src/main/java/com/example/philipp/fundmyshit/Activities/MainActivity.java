@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         //fab setup & onclick
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
