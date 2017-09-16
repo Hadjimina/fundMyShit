@@ -28,5 +28,6 @@
         <item>philipp</item>
     </string-array>
 
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla."</string>
 
 </resources>

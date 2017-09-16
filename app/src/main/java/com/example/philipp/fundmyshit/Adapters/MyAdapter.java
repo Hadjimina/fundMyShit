@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 import com.example.philipp.fundmyshit.R;
@@ -20,39 +18,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
-        TextView mTextViewTitle,mTextViewDesc;
-        ImageView mImageView;
-        Button mButtonDone,mButtonBlacklist;
+        TextView mTitle,mDesc, mPriceFraction;
+        Button mButtonPledge;
 
         MyViewHolder(View v) {
             super(v);
 
-            mButtonDone = (Button) v.findViewById(R.id.buttonDone);
-            mButtonBlacklist = (Button) v.findViewById(R.id.buttonBlacklist);
+            mButtonPledge = (Button) v.findViewById(R.id.pledgeButton);
             mCardView = (CardView) v.findViewById(R.id.card_view);
-            mTextViewTitle = (TextView) v.findViewById(R.id.title);
-            mTextViewDesc = (TextView) v.findViewById(R.id.description);
-            mImageView = (ImageView) v.findViewById(R.id.thumbnail);
+            mTitle = (TextView) v.findViewById(R.id.title);
+            mDesc = (TextView) v.findViewById(R.id.desc);
+            mPriceFraction = (TextView) v.findViewById(R.id.pledgeButton);
 
-            mButtonBlacklist.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Get Blacklist
-
-                    //TODO put removed item into Blacklist
-                    String lessonName = (String) mTextViewTitle.getText();
-                    removeAndUpdateData(lessonName);
-                }
-            });
-
-            mButtonDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO put removed item into DoneList
-                    String lessonName = (String) mTextViewTitle.getText();
-                    removeAndUpdateData(lessonName);
-                }
-            });
         }
     }
 
@@ -74,9 +51,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mTextViewTitle.setText(mDataset.get(position).title);
-        holder.mTextViewDesc.setText(mDataset.get(position).desc);
-        holder.mImageView.setImageResource(mDataset.get(position).coverImg);
+        holder.mTitle.setText(mDataset.get(position).title);
+        //holder.mTextViewDesc.setText(mDataset.get(position).desc);
+        //holder.mImageView.setImageResource(mDataset.get(position).coverImg);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.philipp.fundmyshit.HelperClass;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -7,14 +8,12 @@ import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class HelperClass {
+public class HelperClass extends Activity{
 
 
 
     //helperfunction to retrive all current challenges
-   public void loadArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
+   public static void loadArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
     {
         SharedPreferences sp = mCont.getSharedPreferences(arrayName, MODE_PRIVATE);
         challenges.clear();
@@ -22,13 +21,13 @@ public class HelperClass {
 
         for(int i=0;i<size;i++)
         {
-            challenges.add(new Challenges(mCont,sp.getString("Status_" + i,null), arrayName));
+            //challenges.add(new Challenges(mCont,sp.getString("Status_" + i,null), arrayName));
         }
 
     }
 
     //helper function to save to current challenges
-    public boolean saveArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
+    public static boolean saveArray(Context mCont, ArrayList<Challenges> challenges, String arrayName)
     {
 
         SharedPreferences sp = mCont.getSharedPreferences(arrayName, MODE_PRIVATE);
@@ -44,5 +43,22 @@ public class HelperClass {
         }
 
         return mEdit1.commit();
+    }
+
+    public static ArrayList<Challenges> getFeedChallenges(){
+        //TODO do get request
+
+        int dummyID = 4;
+        int dummyPrice = 50;
+        String dummyTitle = "Dummy Title";
+        String dummyDesc = "THIS IS A DESCRIPTION";
+        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
+        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+
+        ArrayList<Challenges> feedChallenges = new ArrayList<>();
+        feedChallenges.add(dummyChallenge1);
+        feedChallenges.add(dummyChallenge2);
+
+        return feedChallenges;
     }
 }

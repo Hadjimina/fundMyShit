@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-import com.example.philipp.fundmyshit.Activities.MainActivity;
 import com.example.philipp.fundmyshit.Adapters.MyAdapter;
+import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 import com.example.philipp.fundmyshit.R;
 
@@ -19,8 +18,9 @@ import java.util.ArrayList;
 
 public class OneFragment extends Fragment{
 
-    public ArrayList<Challenges> currentLessons;
+    public ArrayList<Challenges> feedChallenges;
     public MyAdapter adapter;
+    private HelperClass helperClass;
     public OneFragment() {
         // Required empty public constructor
     }
@@ -29,6 +29,8 @@ public class OneFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //get Helper class object
+        this.helperClass = new HelperClass();
     }
 
 
@@ -44,9 +46,9 @@ public class OneFragment extends Fragment{
         rv.setHasFixedSize(true);
 
         //get currentLessons data from MainActivity
-        MainActivity activity = (MainActivity) getActivity();
-        currentLessons = activity.getCurrentLessons();
-        adapter = new MyAdapter(currentLessons);
+
+        feedChallenges = helperClass.getFeedChallenges();
+        adapter = new MyAdapter(feedChallenges);
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -58,11 +60,7 @@ public class OneFragment extends Fragment{
     //update currentLessons list & notify adapter of the change
     public void updateCards(){
         //get currentLessons data from MainActivity
-        MainActivity activity = (MainActivity) getActivity();
-        currentLessons = activity.getCurrentLessons();
-
-
-
+        feedChallenges = helperClass.getFeedChallenges();
         adapter.notifyDataSetChanged();
 
     }

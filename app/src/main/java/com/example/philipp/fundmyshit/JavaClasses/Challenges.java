@@ -1,26 +1,25 @@
 package com.example.philipp.fundmyshit.JavaClasses;
 
-import android.content.Context;
-
-import com.example.philipp.fundmyshit.R;
-
 public class Challenges {
-    public String title,desc,type;
-    public int coverImg;
+    public String title,description, videoLink;
+    public int userID, price, currentPrice, challengeID;
 
-    private int[] Icons = {
-            R.drawable.default_img
 
-    };
-
-    public Challenges(Context c, String title, String type){
+    public Challenges(String title, int userID, int price, String description){
         this.title = title;
-        String[] Names = c.getResources().getStringArray(R.array.names);
+        this.userID = userID;
+        this.price = price;
+        this.description = description;
+        currentPrice = 0;
 
-        //Set type of lesson
-        this.type = type;
-
-        //automagically sets image
 
     }
+
+    //updates current price if someone pledged money
+    public void updateCurrentPrice(int pledgedAmount){
+        currentPrice = currentPrice + pledgedAmount;
+    }
+
+    //TODO function to push to database & to get challengeID
+
 }

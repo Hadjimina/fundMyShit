@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.philipp.fundmyshit.Fragments.OneFragment;
 import com.example.philipp.fundmyshit.Fragments.ThreeFragment;
@@ -27,7 +26,6 @@ import com.example.philipp.fundmyshit.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_people_white
     };
     private ViewPagerAdapter adapter;
-    private ArrayList<Challenges> currentLessons,doneLessons;
     private HelperClass helperClass;
+    private ArrayList<Challenges> feedChallenges;
+    private int sessionUserID;
 
 
     @Override
@@ -52,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         //get Helper class object
         this.helperClass = new HelperClass();
-
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,68 +67,20 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-        //setup Lessons ArrayLists & initialize
-        currentLessons = new ArrayList<>();
-        helperClass.loadArray(getApplicationContext(),currentLessons,"currentLessons");
-        doneLessons = new ArrayList<>();
-        helperClass.loadArray(getApplicationContext(),doneLessons,"DoneLessons");
 
 
 
 
         //fab setup & onclick
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //TODO change dummyID to correct id (from shared preference)
 
-                Challenges randLesson = generateRandomSportlesson(helperClass);
-                currentLessons.add(randLesson);
-                Toast.makeText(MainActivity.this, "You will be doing : "+randLesson.title, Toast.LENGTH_SHORT).show();
 
-                //invoke fragment recyclerview update
-                OneFragment fragment = (OneFragment) adapter.getRegisteredFragment(0);
-                fragment.updateCards();
-                helperClass.saveArray(getApplicationContext(),currentLessons,"currentLessons");
             }
         });
-    }
 
-    //Save currentLesson,BlackList & DoneLessons onPause
-    @Override
-    protected void onPause() {
-        super.onPause();
-        helperClass.saveArray(getApplicationContext(),currentLessons,"currentLessons");
-        helperClass.saveArray(getApplicationContext(),doneLessons,"doneLessons");
-    }
-
-    //Helper functions to pass Lessons to Fragments
-    public ArrayList<Challenges> getCurrentLessons() {
-        return currentLessons;
-    }
-    public ArrayList<Challenges> getDoneLessons() {
-        return doneLessons;
-    }
-
-    //Generate random lesson
-    public Challenges generateRandomSportlesson(HelperClass helperClass){
-        //check for beer probability
-        //TODO add settings button for beer
-
-       /* if ( helperClass.beerQuestion(beerString)){
-            return new Challenges(getApplicationContext(), "Beer","currentLessons");
-
-        }else {*/
-        //Get lesson
-        String[] possibleLessons = getResources().getStringArray(R.array.names);
-        int max = possibleLessons.length -1;
-        int min = 0;
-
-        Random r = new Random();
-        int i = r.nextInt(max - min + 1) + min;
-
-        return new Challenges(getApplicationContext(), possibleLessons[i],"currentLessons");
-        //  }
     }
 
 
