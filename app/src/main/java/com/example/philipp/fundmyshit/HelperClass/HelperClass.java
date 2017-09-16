@@ -75,11 +75,11 @@ public class HelperClass extends Activity{
         }
     }
 
-    public void doPostRequest(String url,List<NameValuePair> params ){
+    public String doPostRequest(String url,List<NameValuePair> params ){
         try {
             String paramString = getQuery(params);
 
-            new postData().execute(url, paramString);
+            return new postData().execute(url, paramString).get();
 
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
@@ -89,9 +89,9 @@ public class HelperClass extends Activity{
         }
     }
 
-    public void doGetRequest(String url){
+    public String doGetRequest(String url){
         try {
-            String returnString = new getData().execute(url).get();
+            return new getData().execute(url).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -213,7 +213,6 @@ public class HelperClass extends Activity{
 
             String urlValue = params[0];
 
-
             URL url;
             HttpsURLConnection connection;
             StringBuilder result= new StringBuilder();
@@ -224,7 +223,6 @@ public class HelperClass extends Activity{
                 connection = (HttpsURLConnection) url.openConnection();
                 connection.setDoInput(true);
                 connection.setRequestMethod("GET");
-                Log.i("Status", String.valueOf(connection.getResponseCode()));
 
                 BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line;
@@ -235,7 +233,7 @@ public class HelperClass extends Activity{
 
             }catch (Exception e){
                 e.printStackTrace();
-                Log.e("ERROR", "error in url conncection");
+                Log.e("ERROR", "error in get");
             }
 
             return result.toString();
@@ -260,9 +258,9 @@ public class HelperClass extends Activity{
             String urlParameters = params[1];
             Log.i("params",urlParameters);
 
+            StringBuilder result= new StringBuilder();
             try {
-                //Log.i("params",urlParameters);
-                //String urlParameters = "title=woot&description=b&price=500&user_id=5";
+
                 URL url = new URL(urlValue);
                 URLConnection conn = url.openConnection();
 
@@ -277,16 +275,18 @@ public class HelperClass extends Activity{
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
                 while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
+                    result.append(line);
                 }
                 writer.close();
                 reader.close();
+
+
             }catch (Exception e){
                 e.printStackTrace();
                 Log.e("ERROR","error in post");
             }
 
-            return "hello";
+            return result.toString();
             }
 
         // the onPostexecute method receives the return type of doInBackGround()
