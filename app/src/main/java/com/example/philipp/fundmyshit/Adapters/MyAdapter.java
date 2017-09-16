@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     class MyViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
         TextView mTitle,mDesc, mPriceFraction;
-        Button mPledgeButton;
+        Button mPledgeButton, mWatchButton;
 
         MyViewHolder(View v) {
             super(v);
@@ -45,6 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mTitle = (TextView) v.findViewById(R.id.title);
             mDesc = (TextView) v.findViewById(R.id.desc);
             mPriceFraction = (TextView) v.findViewById(R.id.priceFraction);
+            mWatchButton = (Button) v.findViewById(R.id.watchButton);
         }
 
     }
@@ -78,14 +80,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mTitle.setText(currentChallenge.title);
         holder.mDesc.setText(currentChallenge.description);
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
-
         if (currentChallenge.currentPrice>=currentChallenge.price){
             holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
+        }
+        if(!(currentChallenge.videoLink == null || currentChallenge.currentPrice<currentChallenge.price)){
+            holder.mPledgeButton.setVisibility(View.INVISIBLE);
+
+            holder.mWatchButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+
+                    final TextView input = new TextView(v.getContext());
+
+                    input.setText("VIDEO");
+                    input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    input.setSingleLine(false);
+                    input.setMaxLines(1);
+                    input.setGravity(Gravity.CENTER | Gravity.CENTER);
+                    Log.i("potato", "poteten");
+                    builder.setView(input);
+                }
+            });
+        }else{
+            holder.mWatchButton.setVisibility(View.INVISIBLE);
         }
 
         //get Helper class object
         this.helperClass = new HelperClass();
-
         //OUR OWN CHALLENGES => UPLOAD VIDEO
         if (currentChallenge.userID == MainActivity.getSessionUserID()){
             holder.mPledgeButton.setText("Upload video");
@@ -93,116 +117,123 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             if(currentChallenge.currentPrice < currentChallenge.price){
                 holder.mPledgeButton.setEnabled(false);
                 holder.mPledgeButton.setTextColor(Color.GRAY);
-            }else{
-            //Upload video
-            holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            }else {
+
+                //Upload video
+                holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
 
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
 
-                    final EditText input = new EditText(v.getContext());
+                        final EditText input = new EditText(v.getContext());
 
-                    input.setText("");
-                    input.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-                    input.setSingleLine(false);
-                    input.setMaxLines(1);
-                    input.setGravity(Gravity.CENTER | Gravity.CENTER);
+                        input.setText("Upload Video");
+                        input.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+                        input.setSingleLine(false);
+                        input.setMaxLines(1);
+                        input.setGravity(Gravity.CENTER | Gravity.CENTER);
 
-                    builder.setView(input);
+                        builder.setView(input);
 
-                    builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                        builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
-                            Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
+                                Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
 
-                            int pos = holder.getAdapterPosition();
-                            Challenges curr = mDataset.get(pos);
-                            int ID = currentChallenge.getChallengeID();
+                                int pos = holder.getAdapterPosition();
+                                Challenges curr = mDataset.get(pos);
+                                int ID = currentChallenge.getChallengeID();
 
-                            List<NameValuePair> params = new ArrayList<NameValuePair>();
-                            params.add(new BasicNameValuePair("video", input.getText().toString()));
-
-
-                            helperClass.doPostRequest("https://fundmyshit.herokuapp.com/challenges/" + String.valueOf(ID) + "/add_video", params);
-                            notifyDataSetChanged();
+                                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                                params.add(new BasicNameValuePair("video", input.getText().toString()));
 
 
-                        }
-                    });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-                    builder.setTitle("Upload your shit");
-                    builder.setMessage("Insert your video link");
+                                helperClass.doPostRequest("https://fundmyshit.herokuapp.com/challenges/" + String.valueOf(ID) + "/add_video", params);
+                                notifyDataSetChanged();
 
 
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-
-                }
-            });}
-
-
-        }else{
-
-            holder.mPledgeButton.setText("Fund");
-            holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                        builder.setTitle("Upload your shit");
+                        builder.setMessage("Insert your video link");
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-
-
-                final EditText input = new EditText(v.getContext());
-
-                input.setText("0");
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                input.setSingleLine(false);
-                input.setMaxLines(1);
-                input.setGravity(Gravity.CENTER | Gravity.CENTER);
-
-                builder.setView(input);
-
-                builder.setPositiveButton("Fund", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
-
-                        int pos = holder.getAdapterPosition();
-                        Challenges curr = mDataset.get(pos);
-                        int ID = currentChallenge.getChallengeID();
-
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("amount", input.getText().toString()));
-                        params.add(new BasicNameValuePair("challenge_id", String.valueOf(ID)));
-                        params.add(new BasicNameValuePair("payer_id", String.valueOf(MainActivity.getSessionUserID())));
-
-
-                        helperClass.doPostRequest("https://fundmyshit.herokuapp.com/payments",params);
-                        currentChallenge.updateCurrentPrice(Integer.parseInt(input.getText().toString()));
-                        notifyDataSetChanged();
-
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
 
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-                builder.setTitle("Fund this shit");
-                builder.setMessage("Insert your amount");
-
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
             }
-            });
+
+
+        }else {
+            if (currentChallenge.currentPrice >= currentChallenge.price) {
+                holder.mPledgeButton.setVisibility(View.INVISIBLE);
+
+            } else {
+
+                holder.mPledgeButton.setText("Fund");
+                holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+
+                        final EditText input = new EditText(v.getContext());
+
+                        input.setText("0");
+                        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        input.setSingleLine(false);
+                        input.setMaxLines(1);
+                        input.setGravity(Gravity.CENTER | Gravity.CENTER);
+
+                        builder.setView(input);
+
+                        builder.setPositiveButton("Fund", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                int pos = holder.getAdapterPosition();
+
+                                Challenges nowChallenge = mDataset.get(pos);
+
+                                Challenges curr = mDataset.get(pos);
+                                int ID = currentChallenge.getChallengeID();
+
+                                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                                params.add(new BasicNameValuePair("amount", input.getText().toString()));
+                                params.add(new BasicNameValuePair("challenge_id", String.valueOf(ID)));
+                                params.add(new BasicNameValuePair("payer_id", String.valueOf(MainActivity.getSessionUserID())));
+
+
+                                helperClass.doPostRequest("https://fundmyshit.herokuapp.com/payments", params);
+                                currentChallenge.updateCurrentPrice(Integer.parseInt(input.getText().toString()));
+                                notifyDataSetChanged();
+
+
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                        builder.setTitle("Fund this shit");
+                        builder.setMessage("Insert your amount");
+
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                    }
+                });
+            }
         }
     }
 

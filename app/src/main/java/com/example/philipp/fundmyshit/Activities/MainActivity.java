@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
                         helperClass.doPostRequest(url,params);
 
 
+<<<<<<< HEAD
+=======
+                        adapter.notifyDataSetChanged();
+>>>>>>> 3fcf6b57b94dd56dc5e0af07e8401a31b25dd05e
                     }
                 })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
