@@ -2,7 +2,6 @@ package com.example.philipp.fundmyshit.Activities;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
+
 
     }
 
@@ -145,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 

@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#F57C00</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
-<<<<<<< HEAD
+
     <color name="colorAccent">#009688</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
@@ -12,9 +12,3 @@
     <color name="divider">#BDBDBD</color>
     <item name="white" type="color">#FFFFFF</item>
 </resources>
-=======
-    <color name="navigationBarColor">#000000</color>
-    <color name="colorAccent">#c8e8ff</color>
-
-</resources>
->>>>>>> 7fb74982424f9c516be9ae55f1aceada27429ced
