@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +83,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         if (currentChallenge.currentPrice>=currentChallenge.price){
             holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
         }
-        if(!(currentChallenge.videoLink == null || currentChallenge.currentPrice<currentChallenge.price)){
+        if(!currentChallenge.videoLink.equals("null") && !currentChallenge.videoLink.isEmpty() && currentChallenge.currentPrice>= currentChallenge.price){
             holder.mPledgeButton.setVisibility(View.INVISIBLE);
 
             holder.mWatchButton.setOnClickListener(new View.OnClickListener() {
@@ -92,11 +91,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
                     Intent intent = new Intent(mContext,YoutubeActivity.class);
-                   // intent.putExtra("url", currentChallenge.videoLink);
+                    intent.putExtra("url", currentChallenge.videoLink);
                     mContext.startActivity(intent);
-
-                    Log.i("potato", "poteten");
-
                 }
             });
         }else{
