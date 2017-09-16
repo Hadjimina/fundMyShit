@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         //get Helper class object
         this.helperClass = new HelperClass();
 
+        helperClass.testFunctionGet();
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -113,11 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-
-
-
-
 
             }
         });

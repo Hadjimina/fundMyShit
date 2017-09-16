@@ -74,6 +74,7 @@
         android:layout_below="@+id/password"
         android:layout_marginTop="80dp"
         android:background="@color/colorAccent"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:text="Login" />
 
 
@@ -85,6 +86,7 @@
         android:layout_below="@+id/login"
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:text="@string/sign_up" />
 
 
