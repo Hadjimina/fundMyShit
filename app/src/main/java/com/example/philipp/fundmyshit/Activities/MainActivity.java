@@ -2,6 +2,7 @@ package com.example.philipp.fundmyshit.Activities;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -90,18 +91,33 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
 
                 builder.setTitle("New challenge")
-                        .setView(inflater.inflate(R.layout.dialog_new_challenge, null));
+                        .setView(inflater.inflate(R.layout.dialog_new_challenge, null))
+                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText title_input = (EditText) findViewById(R.id.title_input);
+                        EditText description = (EditText) findViewById(R.id.description);
+                        EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
+                        String titleString = title_input.getText().toString();
+                        String descriptionString = description.getText().toString();
+                        int shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
+                        Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
+                        //TODO: Send challenge to database
+                    }
+                })
+                        .setNegativeButton("Chancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                EditText title = (EditText) findViewById(R.id.title);
-                EditText description = (EditText) findViewById(R.id.description);
-                EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
-                String titleString = title.getText().toString();
-                String descriptionString = description.getText().toString();
-                int shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
-                Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
-                //TODO: Send challenge to database
+
+
+
+
 
 
             }
