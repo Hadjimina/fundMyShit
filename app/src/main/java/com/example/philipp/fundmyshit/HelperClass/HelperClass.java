@@ -50,8 +50,8 @@ public class HelperClass extends Activity{
 
         int dummyID = 4;
         int dummyPrice = 50;
-        String dummyTitle = "Dummy Title";
-        String dummyDesc = "THIS IS A DESCRIPTION";
+        String dummyTitle = "Dummy Challenge";
+        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
         Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
         Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
 
@@ -60,5 +60,39 @@ public class HelperClass extends Activity{
         feedChallenges.add(dummyChallenge2);
 
         return feedChallenges;
+    }
+
+    public static ArrayList<Challenges> getMyFundedChallenges(){
+        //TODO do get request
+
+        int dummyID = 4;
+        int dummyPrice = 50;
+        String dummyTitle = "Dummy Funded";
+        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
+        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
+        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+
+        ArrayList<Challenges> myFundedChallenges = new ArrayList<>();
+        myFundedChallenges.add(dummyChallenge1);
+        myFundedChallenges.add(dummyChallenge2);
+
+        return myFundedChallenges;
+    }
+
+    public static ArrayList<Challenges> getPersonalChallenges(){
+        //TODO do get request
+
+        int dummyID = 4;
+        int dummyPrice = 50;
+        String dummyTitle = "Personal Challenges";
+        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
+        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
+        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+
+        ArrayList<Challenges> personalChallenges = new ArrayList<>();
+        personalChallenges.add(dummyChallenge1);
+        personalChallenges.add(dummyChallenge2);
+
+        return personalChallenges;
     }
 }
