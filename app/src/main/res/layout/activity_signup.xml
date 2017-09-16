@@ -12,6 +12,8 @@
     android:background="@drawable/background"
     tools:context="com.example.philipp.fundmyshit.activities.SignupActivity">
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
