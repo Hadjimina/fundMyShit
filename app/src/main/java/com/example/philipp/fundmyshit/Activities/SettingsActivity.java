@@ -19,16 +19,17 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        CheckBox beer = (CheckBox)findViewById(R.id.checkBox);
+//        CheckBox beer = (CheckBox)findViewById(R.id.checkBox);
 
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myChildToolbar);
         ActionBar ab = getSupportActionBar();
         TextView name = (TextView) findViewById(R.id.username);
-        name.setText();
+        name.setText("Matt");
         ab.setDisplayHomeAsUpEnabled(true);
 
-
+        TextView balance = (TextView) findViewById(R.id.balance);
+        balance.setText(100);
 
 
     }
