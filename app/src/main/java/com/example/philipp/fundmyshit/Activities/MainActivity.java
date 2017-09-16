@@ -34,8 +34,6 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.philipp.fundmyshit.R.id.shmeckles;
-
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -93,12 +91,12 @@ public class MainActivity extends AppCompatActivity {
                 builder.setView(test);
 
 
-                /*final EditText title_input = (EditText) test.findViewById(R.id.title_input);
+                final EditText title_input = (EditText) test.findViewById(R.id.title_input);
                 final EditText description = (EditText) test.findViewById(R.id.description);
                 final EditText shmeckles = (EditText) test.findViewById(R.id.shmeckles);
                 System.out.println("TITLE ADRESS "+title_input);
                 System.out.println("DESC ADRESS "+description);
-                System.out.println("SHMECKLES ADRESS "+shmeckles);*/
+                System.out.println("SHMECKLES ADRESS "+shmeckles);
 
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
@@ -116,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                         params.add(new BasicNameValuePair("id", sessionUserID.toString()));
 
                         //????
-                        newChallenge.setChallengeID(Integer.parseInt(HelperClass.doPostRequest(url, params)));
 
                     }
                 })
