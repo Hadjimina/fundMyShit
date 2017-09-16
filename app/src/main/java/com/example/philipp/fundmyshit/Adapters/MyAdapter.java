@@ -119,6 +119,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         helperClass.doPostRequest("https://fundmyshit.herokuapp.com/payments",params);
 
 
+
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

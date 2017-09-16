@@ -151,6 +151,7 @@ public class HelperClass extends Activity{
             try {
                 JSONObject o = arr.getJSONObject(i);
                 Challenges c = new Challenges(o.getString("title"), o.getInt("challenger_id"), o.getInt("price"), o.getString("description"));
+                c.currentPrice = o.getInt("current_price");
                 c.setChallengeID(o.getInt("id"));
 
 
