@@ -67,7 +67,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 .inflate(R.layout.card_item, parent, false);
 
 
-
         // set the view's size, margins, paddings and layout parameters
         return new MyViewHolder(v);
     }

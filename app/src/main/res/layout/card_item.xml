@@ -77,9 +77,9 @@
             android:textColor="@color/colorAccent"
             android:layout_alignBaseline="@+id/priceFraction"
             android:layout_alignBottom="@+id/priceFraction"
-            android:layout_marginLeft="0dp"/>
-           <!-- android:layout_toStartOf="@+id/priceFraction"
-            android:layout_marginEnd="152dp"-->
+            android:layout_marginLeft="0dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
 
 
         <Button
@@ -91,6 +91,7 @@
             android:textColor="@color/colorAccent"
             android:layout_alignBottom="@+id/priceFraction"
             android:layout_gravity="center"
+            style="@style/Widget.AppCompat.Button.Borderless"
             />
 
 
