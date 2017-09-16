@@ -2,6 +2,7 @@ package com.example.philipp.fundmyshit.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.philipp.fundmyshit.Activities.MainActivity;
+import com.example.philipp.fundmyshit.Activities.YoutubeActivity;
 import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 import com.example.philipp.fundmyshit.R;
@@ -73,7 +75,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
 
-
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Challenges currentChallenge = mDataset.get(position);
@@ -90,18 +91,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 public void onClick(View v) {
 
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    Intent intent = new Intent(mContext,YoutubeActivity.class);
+                   // intent.putExtra("url", currentChallenge.videoLink);
+                    mContext.startActivity(intent);
 
-
-                    final TextView input = new TextView(v.getContext());
-
-                    input.setText("VIDEO");
-                    input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    input.setSingleLine(false);
-                    input.setMaxLines(1);
-                    input.setGravity(Gravity.CENTER | Gravity.CENTER);
                     Log.i("potato", "poteten");
-                    builder.setView(input);
+
                 }
             });
         }else{

@@ -16,13 +16,3 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
     }
 }
-
-<<<<<<< HEAD
-        TextView balance = (TextView) findViewById(R.id.balance);
-        balance.setText(100);
-*/
-=======
-
->>>>>>> 3fcf6b57b94dd56dc5e0af07e8401a31b25dd05e
-
-

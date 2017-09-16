@@ -19,15 +19,20 @@ import com.example.philipp.fundmyshit.R;
 
 public class YoutubeActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
 
-        String passedUrl = "https://www.youtube.com/watch?v=XGSy3_Czz8k";
-        String[] parts = passedUrl.split("\\?");
-        String youtubeURL = "https://www.youtube.com/embed/"+parts[1];
+       /* Bundle bundle = getIntent().getExtras();
+        String passedUrl = bundle.getString("url");
 
+    https://www.youtube.com/watch?v=SHq2qrFUlGY
+        String[] parts = passedUrl.split("\\?");
+        String youtubeURL = "https://www.youtube.com/embed/"+parts[1];*/
+
+        String youtubeURL ="https://www.youtube.com/embed/SHq2qrFUlGY";
 
         String frameVideo = "<html><body><br><iframe width=\"395\" height=\"315\" allowfullscreen=\"allowfullscreen\" src=\""+youtubeURL+"\"></iframe></body></html>";
         WebView displayYoutubeVideo = (WebView) findViewById(R.id.mWebView);
