@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private HelperClass helperClass;
     private ArrayList<Challenges> feedChallenges;
     private static Integer sessionUserID;
+    private EditText title_input;
 
 
     @Override
@@ -78,38 +79,41 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         //fab setup & onclick
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        final EditText title_input = (EditText) findViewById(R.id.title_input);
-        final EditText description = (EditText) findViewById(R.id.description);
-        final EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO change dummyID to correct id (from shared preference)
-
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                builder.setTitle("New challenge");
+                View test = inflater.inflate(R.layout.dialog_new_challenge, null);
+                builder.setView(test);
 
-                builder.setTitle("New challenge")
-                        .setView(inflater.inflate(R.layout.dialog_new_challenge, null))
-                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+
+                final EditText title_input = (EditText) test.findViewById(R.id.title_input);
+                final EditText description = (EditText) test.findViewById(R.id.description);
+                final EditText shmeckles = (EditText) test.findViewById(R.id.shmeckles);
+                System.out.println("TITLE ADRESS "+title_input);
+                System.out.println("DESC ADRESS "+description);
+                System.out.println("SHMECKLES ADRESS "+shmeckles);
+
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
                         String titleString = title_input.getText().toString();
                         String descriptionString = description.getText().toString();
-                        Integer shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
-                        Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
-                        //TODO: Send challenge to database
+                        String shmecklesString = shmeckles.getText().toString();
+                        System.out.println("STRINGS: "+titleString+descriptionString+shmecklesString);
+
                         String url = "https://fundmyshit.herokuapp.com/challenges";
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("title", titleString));
                         params.add(new BasicNameValuePair("description", descriptionString));
-                        params.add(new BasicNameValuePair("price", shmecklesInt.toString()));
+                        params.add(new BasicNameValuePair("price", shmecklesString));
                         params.add(new BasicNameValuePair("id", sessionUserID.toString()));
-                        HelperClass.doPostRequest(url, params);
+
+                        //????
 
                     }
                 })

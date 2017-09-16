@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginText = (TextView) findViewById(R.id.loginText);
         email = (EditText) findViewById(R.id.email);
+        System.out.println("EMAIL: "+email);
         password = (EditText) findViewById(R.id.password);
         errorEmail = (TextView) findViewById(R.id.errorEmailLogin);
         errorPassword = (TextView) findViewById(R.id.errorPasswordLogin);

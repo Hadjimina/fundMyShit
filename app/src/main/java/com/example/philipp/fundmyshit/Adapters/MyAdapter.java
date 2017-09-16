@@ -14,15 +14,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.philipp.fundmyshit.Activities.MainActivity;
+import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 import com.example.philipp.fundmyshit.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Challenges> mDataset;
     private Context mContext;
+    private HelperClass helperClass;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
@@ -37,9 +44,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mTitle = (TextView) v.findViewById(R.id.title);
             mDesc = (TextView) v.findViewById(R.id.desc);
             mPriceFraction = (TextView) v.findViewById(R.id.priceFraction);
-
         }
+
     }
+
 
     public MyAdapter(ArrayList<Challenges>myDataset) {
         mDataset = myDataset;
@@ -53,9 +61,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_item, parent, false);
 
+
+
         // set the view's size, margins, paddings and layout parameters
         return new MyViewHolder(v);
     }
+
+
 
 
 
@@ -67,8 +79,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
 
 
+
+        //get Helper class object
+        this.helperClass = new HelperClass();
+
+
         holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
@@ -85,8 +103,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 builder.setPositiveButton("Fund", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        
+                        Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
 
-                        //TODO add fund amount on challenge
+                        int pos = holder.getAdapterPosition();
+                        Challenges curr = mDataset.get(pos);
+                        int ID = currentChallenge.getChallengeID();
+
+                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+                        params.add(new BasicNameValuePair("amount", input.getText().toString()));
+                        params.add(new BasicNameValuePair("challenge_id", String.valueOf(ID)));
+                        params.add(new BasicNameValuePair("payer_id", String.valueOf(MainActivity.getSessionUserID())));
+
+
+                        helperClass.doPostRequest("https://fundmyshit.herokuapp.com/payments",params);
+
+
 
                     }
                 });
@@ -106,9 +138,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             });
     }
 
+
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     private void removeAndUpdateData(String itemToRemove){
