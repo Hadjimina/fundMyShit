@@ -13,9 +13,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.SparseArray;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -34,8 +33,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.input;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,65 +81,17 @@ public class MainActivity extends AppCompatActivity {
 
         //fab setup & onclick
         fab = (FloatingActionButton) findViewById(R.id.fab);
-<<<<<<< HEAD
+
         final EditText title_input = (EditText) findViewById(R.id.title_input);
         final EditText description = (EditText) findViewById(R.id.description);
         final EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
 
-=======
->>>>>>> b9037c02386769e31f5dad0c827c4bd73aed9a1b
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
 
-                final EditText title = new EditText(v.getContext());
-               /* final EditText desc = new EditText(v.getContext());
-                final EditText schmeckles = new EditText(v.getContext());*/
-                title.setText("0");
-                title.setInputType(InputType.TYPE_CLASS_NUMBER);
-                title.setSingleLine(false);
-                title.setGravity(Gravity.CENTER | Gravity.CENTER);
-               /* desc.setText("0");
-                desc.setInputType(InputType.TYPE_CLASS_NUMBER);
-                desc.setSingleLine(false);
-                desc.setGravity(Gravity.CENTER | Gravity.CENTER);*/
 
-                builder.setView(input);
-
-                builder.setPositiveButton("Fund", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        String titleString = title.getText().toString();
-                       /* String descString = desc.getText().toString();
-                        String schmecklesString = schmeckles.getText().toString();*/
-
-                        String url = "https://fundmyshit.herokuapp.com/challenges";
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("title", titleString));
-                        /*params.add(new BasicNameValuePair("description", descString));
-                        params.add(new BasicNameValuePair("price", schmecklesString));*/
-                        params.add(new BasicNameValuePair("id", sessionUserID.toString()));
-
-                        helperClass.doPostRequest(url,params);
-
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-                builder.setTitle("Fund this shit");
-                builder.setMessage("Insert your amount");
-
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-
-/*
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
                 builder.setTitle("New challenge");
@@ -171,10 +120,8 @@ public class MainActivity extends AppCompatActivity {
                         params.add(new BasicNameValuePair("description", descriptionString));
                         params.add(new BasicNameValuePair("price", shmecklesString));
                         params.add(new BasicNameValuePair("id", sessionUserID.toString()));
-*/
-                        //????
-<<<<<<< HEAD
-=======
+
+
 
                     }
                 })
@@ -187,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
->>>>>>> b9037c02386769e31f5dad0c827c4bd73aed9a1b
+
 
             }
         });
