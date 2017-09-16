@@ -75,7 +75,7 @@ public class HelperClass extends Activity{
         }
     }
 
-    public void doPostRequest(String url,List<NameValuePair> params ){
+    public static void doPostRequest(String url,List<NameValuePair> params ){
         try {
             String paramString = getQuery(params);
 
@@ -252,7 +252,7 @@ public class HelperClass extends Activity{
         }
     }
 
-    public class postData extends AsyncTask<String, String, String> {
+    public static class postData extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... params) {
 
@@ -295,7 +295,7 @@ public class HelperClass extends Activity{
         }
     }
 
-    public String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
+    public static String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
     {
         StringBuilder result = new StringBuilder();
         boolean first = true;

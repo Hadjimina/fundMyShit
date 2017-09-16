@@ -6,7 +6,9 @@ package com.example.philipp.fundmyshit.Activities;
 
 //STILL THE OLD SIGNUP
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,12 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.R;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -78,20 +82,7 @@ public class SignupActivity extends AppCompatActivity {
                 String nameString = name.getText().toString();
                 String passwordString = password.getText().toString();
                 String checkPasswordString = checkPassword.getText().toString();
-                final String emailString = email.getText().toString();
-
-                try {
-                    URL url = new URL("https://fundmyshit.herokuapp.com/challenges/users(.:format)");
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    String postJsonData = "{\"username\":"+nameString+",\"email\":"+emailString+",\"password\":"+passwordString+" }";
-                    wr.writeBytes(postJsonData);
-                    wr.flush();
-                    wr.close();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
+                String emailString = email.getText().toString();
 
                 //input verification and error message displaying
                 if(passwordString.length() > 20){
@@ -107,9 +98,18 @@ public class SignupActivity extends AppCompatActivity {
 
                 //Load the data to the database.
                 if(noErrors){
+                    String url = "https://fundmyshit.herokuapp.com/users?email=" + email + "&password=" + password +"&username=" +nameString;
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    params.add(new BasicNameValuePair("email", emailString));
+                    params.add(new BasicNameValuePair("password", passwordString));
+                    params.add(new BasicNameValuePair("username", nameString));
+                    HelperClass.doPostRequest(url, params);
+                    SharedPreferences sharedPref = SignupActivity.this.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt(getString(R.string.sessionUserID), userID); //write a method to obtain current user ID
+                    editor.commit();
 
-
-                    startActivity(new Intent(v.getContext(), LoginActivity.class));
+                    startActivity(new Intent(v.getContext(), MainActivity.class));
 
                 }
 
