@@ -2,6 +2,7 @@ package com.example.philipp.fundmyshit.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -78,13 +79,78 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mDesc.setText(currentChallenge.description);
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
 
-
+        if (currentChallenge.currentPrice>=currentChallenge.price){
+            holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
+        }
 
         //get Helper class object
         this.helperClass = new HelperClass();
 
+        //OUR OWN CHALLENGES => UPLOAD VIDEO
+        if (currentChallenge.userID == MainActivity.getSessionUserID()){
+            holder.mPledgeButton.setText("Upload video");
 
-        holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
+            if(currentChallenge.currentPrice < currentChallenge.price){
+                holder.mPledgeButton.setEnabled(false);
+                holder.mPledgeButton.setTextColor(Color.GRAY);
+            }else{
+            //Upload video
+            holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+
+                    final EditText input = new EditText(v.getContext());
+
+                    input.setText("");
+                    input.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+                    input.setSingleLine(false);
+                    input.setMaxLines(1);
+                    input.setGravity(Gravity.CENTER | Gravity.CENTER);
+
+                    builder.setView(input);
+
+                    builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
+
+                            int pos = holder.getAdapterPosition();
+                            Challenges curr = mDataset.get(pos);
+                            int ID = currentChallenge.getChallengeID();
+
+                            List<NameValuePair> params = new ArrayList<NameValuePair>();
+                            params.add(new BasicNameValuePair("video", input.getText().toString()));
+
+
+                            helperClass.doPostRequest("https://fundmyshit.herokuapp.com/challenges/" + String.valueOf(ID) + "/add_video", params);
+                            notifyDataSetChanged();
+
+
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+                    builder.setTitle("Upload your shit");
+                    builder.setMessage("Insert your video link");
+
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
+            });}
+
+
+        }else{
+
+            holder.mPledgeButton.setText("Fund");
+            holder.mPledgeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
@@ -103,7 +169,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 builder.setPositiveButton("Fund", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        
+
                         Challenges nowChallenge = mDataset.get(holder.getAdapterPosition());
 
                         int pos = holder.getAdapterPosition();
@@ -117,7 +183,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
                         helperClass.doPostRequest("https://fundmyshit.herokuapp.com/payments",params);
-
+                        currentChallenge.updateCurrentPrice(Integer.parseInt(input.getText().toString()));
+                        notifyDataSetChanged();
 
 
                     }
@@ -136,6 +203,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             }
             });
+        }
     }
 
 

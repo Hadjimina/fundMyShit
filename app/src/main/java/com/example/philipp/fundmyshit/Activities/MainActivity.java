@@ -83,8 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
         //fab setup & onclick
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        final EditText title_input = (EditText) findViewById(R.id.title_input);
+        final EditText description = (EditText) findViewById(R.id.description);
+        final EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
+
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+
+
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
@@ -115,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         params.add(new BasicNameValuePair("price", shmecklesString));
                         params.add(new BasicNameValuePair("id", sessionUserID.toString()));
 
-                        //????
+
 
                     }
                 })
@@ -128,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
 
             }
         });

@@ -6,6 +6,8 @@ public class Challenges {
 
 
 
+
+
     public Challenges(String title, int userID, int price, String description){
         this.title = title;
         this.userID = userID;
@@ -21,6 +23,8 @@ public class Challenges {
     //updates current price if someone pledged money
     public void updateCurrentPrice(int pledgedAmount){
         currentPrice = currentPrice + pledgedAmount;
+
+
     }
 
 
