@@ -54,6 +54,10 @@ public class LoginActivity extends AppCompatActivity {
                 stringEmail = email.getText().toString();
                 stringPassword = password.getText().toString();
                 if(stringEmail.equals("") && stringPassword.equals("")){
+                    sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("sessionUserID", 1); //write a method to obtain current user ID
+                    editor.commit();
                     startActivity(new Intent(x.getContext(), MainActivity.class));
                 }
                 errorEmail.setVisibility(View.INVISIBLE);

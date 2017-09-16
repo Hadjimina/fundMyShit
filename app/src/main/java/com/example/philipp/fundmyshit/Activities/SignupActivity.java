@@ -7,14 +7,19 @@ package com.example.philipp.fundmyshit.Activities;
 //STILL THE OLD SIGNUP
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.philipp.fundmyshit.R;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -23,14 +28,12 @@ public class SignupActivity extends AppCompatActivity {
     private TextView errorSurname;
     private TextView errorPassword1;
     private TextView errorPassword2;
-    private EditText forename;
-    private EditText surname;
+    private EditText name;
     private EditText email;
     private EditText password;
     private EditText checkPassword;
     private Button submit;
     public Boolean noErrors;
-    private Long userCount;
 
 
 
@@ -44,9 +47,7 @@ public class SignupActivity extends AppCompatActivity {
         //setup of all components
         textView = (TextView) findViewById(R.id.new_account);
 
-        forename = (EditText) findViewById(R.id.editVorname);
-
-        surname = (EditText) findViewById(R.id.editName);
+        name = (EditText) findViewById(R.id.editName);
 
         password = (EditText) findViewById(R.id.editPassword);
 
@@ -65,7 +66,7 @@ public class SignupActivity extends AppCompatActivity {
 
         submit = (Button) findViewById(R.id.button);
         submit.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+            public void onClick(View v) {
                 //set all error messages invisible
                 errorForename.setVisibility(View.INVISIBLE);
                 errorPassword1.setVisibility(View.INVISIBLE);
@@ -74,11 +75,23 @@ public class SignupActivity extends AppCompatActivity {
                 noErrors = true;
 
                 //get user input
-                String forenameString = forename.getText().toString();
-                String surnameString = surname.getText().toString();
+                String nameString = name.getText().toString();
                 String passwordString = password.getText().toString();
                 String checkPasswordString = checkPassword.getText().toString();
                 final String emailString = email.getText().toString();
+
+                try {
+                    URL url = new URL("https://fundmyshit.herokuapp.com/challenges/users(.:format)");
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    String postJsonData = "{\"username\":"+nameString+",\"email\":"+emailString+",\"password\":"+passwordString+" }";
+                    wr.writeBytes(postJsonData);
+                    wr.flush();
+                    wr.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
 
                 //input verification and error message displaying
                 if(passwordString.length() > 20){
@@ -86,13 +99,8 @@ public class SignupActivity extends AppCompatActivity {
                     noErrors = false;
                 }
 
-                if(isNameTooLong(forenameString)){
+                if(isNameTooLong(nameString)){
                     errorForename.setVisibility(View.VISIBLE);
-                    noErrors = false;
-                }
-
-                if(isNameTooLong(surnameString)){
-                    errorSurname.setVisibility(View.VISIBLE);
                     noErrors = false;
                 }
 

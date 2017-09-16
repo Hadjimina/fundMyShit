@@ -8,6 +8,10 @@ import android.util.Log;
 
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -83,38 +87,53 @@ public class HelperClass extends Activity{
         return mEdit1.commit();
     }
 
-    public static ArrayList<Challenges> getFeedChallenges(){
+
+
+    public ArrayList<Challenges> getFeedChallenges(){
         //TODO do get request
+        String url = "https://fundmyshit.herokuapp.com/challenges";
+        String typeOfReq = "GET";
+        try {
+            String returnString = new getData().execute(url,typeOfReq).get();
+            JSONArray jsonArray = new JSONArray(returnString);
+            ArrayList<Challenges> feedChallenges = parseChallenges(jsonArray);
+            return feedChallenges;
 
-        int dummyID = 4;
-        int dummyPrice = 50;
-        String dummyTitle = "Dummy Challenge";
-        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
-        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
-        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
 
-        ArrayList<Challenges> feedChallenges = new ArrayList<>();
-        feedChallenges.add(dummyChallenge1);
-        feedChallenges.add(dummyChallenge2);
-
-        return feedChallenges;
     }
 
-    public static ArrayList<Challenges> getMyFundedChallenges(){
+    public ArrayList<Challenges> getMyFundedChallenges(Activity a){
         //TODO do get request
 
-        int dummyID = 4;
-        int dummyPrice = 50;
-        String dummyTitle = "Dummy Funded";
-        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
-        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
-        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+        SharedPreferences sharedPref = a.getPreferences(Context.MODE_PRIVATE);
+        int sessionUserID = sharedPref.getInt("sessionUserID", 1);
+        System.out.println("USERID: "+sessionUserID);
 
-        ArrayList<Challenges> myFundedChallenges = new ArrayList<>();
-        myFundedChallenges.add(dummyChallenge1);
-        myFundedChallenges.add(dummyChallenge2);
+        String url = "https://fundmyshit.herokuapp.com/payments/" + sessionUserID + "/payed_challenges";
+        String typeOfReq = "GET";
+        try {
+            String returnString = new getData().execute(url,typeOfReq).get();
+            JSONArray jsonArray = new JSONArray(returnString);
+            ArrayList<Challenges> myFundedChallenges = parseChallenges(jsonArray);
+            return myFundedChallenges;
 
-        return myFundedChallenges;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     public static ArrayList<Challenges> getPersonalChallenges(){
@@ -132,6 +151,21 @@ public class HelperClass extends Activity{
         personalChallenges.add(dummyChallenge2);
 
         return personalChallenges;
+    }
+
+    private ArrayList<Challenges> parseChallenges(JSONArray arr){
+        ArrayList<Challenges> ch = new ArrayList<>();
+
+        for(int i = 0; i < arr.length(); i++){
+            try {
+                JSONObject o = arr.getJSONObject(i);
+                Challenges c = new Challenges(o.getString("title"), o.getInt("id"), o.getInt("price"), o.getString("description"));
+                ch.add(c);
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return ch;
     }
 
 
