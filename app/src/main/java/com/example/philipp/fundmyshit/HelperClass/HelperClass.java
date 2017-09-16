@@ -136,21 +136,29 @@ public class HelperClass extends Activity{
 
     }
 
-    public static ArrayList<Challenges> getPersonalChallenges(){
+    public ArrayList<Challenges> getPersonalChallenges(Activity a){
         //TODO do get request
+        SharedPreferences sharedPref = a.getPreferences(Context.MODE_PRIVATE);
+        int sessionUserID = sharedPref.getInt("sessionUserID", 1);
+        System.out.println("USERID: "+sessionUserID);
 
-        int dummyID = 4;
-        int dummyPrice = 50;
-        String dummyTitle = "Personal Challenges";
-        String dummyDesc =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus, lacus vel tincidunt ornare, libero ante luctus nunc, ac porttitor nunc enim egestas lorem. Proin auctor turpis eleifend magna ultricies, quis ullamcorper libero tincidunt. Morbi consectetur lectus id aliquet fringilla.";
-        Challenges dummyChallenge1 = new Challenges(dummyTitle,dummyID,dummyPrice,dummyDesc);
-        Challenges dummyChallenge2 = new Challenges(dummyTitle,dummyID+1,dummyPrice,dummyDesc);
+        String url = "https://fundmyshit.herokuapp.com/users/" + sessionUserID + "/challenges";
+        String typeOfReq = "GET";
 
-        ArrayList<Challenges> personalChallenges = new ArrayList<>();
-        personalChallenges.add(dummyChallenge1);
-        personalChallenges.add(dummyChallenge2);
+        try {
+            String returnString = new getData().execute(url,typeOfReq).get();
+            JSONArray jsonArray = new JSONArray(returnString);
+            ArrayList<Challenges> personalChallenges = parseChallenges(jsonArray);
+            return personalChallenges;
 
-        return personalChallenges;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private ArrayList<Challenges> parseChallenges(JSONArray arr){
