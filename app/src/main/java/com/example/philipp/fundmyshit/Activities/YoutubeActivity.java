@@ -29,9 +29,7 @@ public class YoutubeActivity extends AppCompatActivity {
         String passedUrl = bundle.getString("url");
 
         String[] parts = passedUrl.split("\\?");
-        String youtubeURL = "https://www.youtube.com/embed/"+parts[1];
-
-        //String youtubeURL ="https://www.youtube.com/embed/SHq2qrFUlGY";
+        String youtubeURL = "https://www.youtube.com/embed/"+parts[1].substring(2);
 
         String frameVideo = "<html><body><br><iframe width=\"395\" height=\"315\" allowfullscreen=\"allowfullscreen\" src=\""+youtubeURL+"\"></iframe></body></html>";
         WebView displayYoutubeVideo = (WebView) findViewById(R.id.mWebView);
