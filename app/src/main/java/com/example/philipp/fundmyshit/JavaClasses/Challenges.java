@@ -13,14 +13,20 @@ public class Challenges {
         this.description = description;
         currentPrice = 0;
 
-
     }
 
+    public void setChallengeID(int challengeID){
+        this.challengeID = challengeID;
+    }
     //updates current price if someone pledged money
     public void updateCurrentPrice(int pledgedAmount){
         currentPrice = currentPrice + pledgedAmount;
     }
 
-    //TODO function to push to database & to get challengeID
+
+
+    public int getChallengeID(){
+        return this.challengeID;
+    }
 
 }

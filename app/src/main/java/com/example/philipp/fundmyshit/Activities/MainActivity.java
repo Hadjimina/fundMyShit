@@ -101,15 +101,18 @@ public class MainActivity extends AppCompatActivity {
                         String titleString = title_input.getText().toString();
                         String descriptionString = description.getText().toString();
                         Integer shmecklesInt =  Integer.parseInt(shmeckles.getText().toString());
+
                         Challenges newChallenge = new Challenges(titleString, sessionUserID, shmecklesInt, descriptionString);
-                        //TODO: Send challenge to database
+
                         String url = "https://fundmyshit.herokuapp.com/challenges";
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("title", titleString));
                         params.add(new BasicNameValuePair("description", descriptionString));
                         params.add(new BasicNameValuePair("price", shmecklesInt.toString()));
                         params.add(new BasicNameValuePair("id", sessionUserID.toString()));
-                        HelperClass.doPostRequest(url, params);
+
+                        //????
+                        newChallenge.setChallengeID(Integer.parseInt(HelperClass.doPostRequest(url, params)));
 
                     }
                 })
