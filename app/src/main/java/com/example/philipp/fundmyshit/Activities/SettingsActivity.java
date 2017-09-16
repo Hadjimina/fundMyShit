@@ -27,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         TextView balance = (TextView) findViewById(R.id.balance);
         balance.setText(100);
-
+*/
 
 
     }
