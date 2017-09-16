@@ -85,6 +85,7 @@
         android:text="Login"
         android:layout_above="@+id/signup"
         android:layout_alignParentStart="true"
+        android:gravity="center"
         android:layout_marginBottom="17dp" />
 
 
@@ -101,6 +102,7 @@
         android:text="@string/sign_up"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:gravity="center"
         android:layout_marginBottom="36dp" />
 
 

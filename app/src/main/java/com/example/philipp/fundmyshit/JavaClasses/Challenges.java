@@ -26,6 +26,9 @@ public class Challenges {
 
 
     }
+    public void setVideoLink(String link){
+        this.videoLink = link;
+    }
 
 
 
