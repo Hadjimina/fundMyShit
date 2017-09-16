@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
-
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -119,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         helperClass.doPostRequest(url,params);
+
 
                         adapter.notifyDataSetChanged();
                     }
