@@ -103,7 +103,7 @@ public class SignupActivity extends AppCompatActivity {
                     params.add(new BasicNameValuePair("email", emailString));
                     params.add(new BasicNameValuePair("password", passwordString));
                     params.add(new BasicNameValuePair("username", nameString));
-                    HelperClass.doPostRequest(url, params);
+                    int userID = Integer.parseInt(HelperClass.doPostRequest(url, params));
                     SharedPreferences sharedPref = SignupActivity.this.getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt(getString(R.string.sessionUserID), userID); //write a method to obtain current user ID

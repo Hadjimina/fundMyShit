@@ -75,7 +75,7 @@ public class HelperClass extends Activity{
         }
     }
 
-    public String doPostRequest(String url,List<NameValuePair> params ){
+    public static String doPostRequest(String url,List<NameValuePair> params ){
         try {
             String paramString = getQuery(params);
 
@@ -87,6 +87,7 @@ public class HelperClass extends Activity{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public String doGetRequest(String url){
@@ -98,6 +99,7 @@ public class HelperClass extends Activity{
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     //helper function to save to current challenges
