@@ -6,9 +6,7 @@ package com.example.philipp.fundmyshit.Activities;
 
 //STILL THE OLD SIGNUP
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -89,6 +87,12 @@ public class SignupActivity extends AppCompatActivity {
                     errorPassword2.setVisibility(View.VISIBLE);
                     noErrors = false;
                 }
+                if(!passwordString.equals(checkPasswordString)){
+                    System.out.println(passwordString);
+                    System.out.println(checkPasswordString);
+                    errorPassword2.setVisibility(View.VISIBLE);
+                    noErrors = false;
+                }
 
                 if(isNameTooLong(nameString)){
                     errorForename.setVisibility(View.VISIBLE);
@@ -104,12 +108,6 @@ public class SignupActivity extends AppCompatActivity {
                     params.add(new BasicNameValuePair("password", passwordString));
                     params.add(new BasicNameValuePair("username", nameString));
                     int userID = Integer.parseInt(HelperClass.doPostRequest(url, params));
-                    System.out.println("userID: "+userID);
-                    SharedPreferences sharedPref = SignupActivity.this.getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt("sessionUserID", userID); //write a method to obtain current user ID
-                    editor.commit();
-                    System.out.println("sharedUserID: "+sharedPref.getInt("sessionUserID", 1));
 
                     Intent intent = new Intent(v.getContext(),MainActivity.class);
                     intent.putExtra("userID", userID);

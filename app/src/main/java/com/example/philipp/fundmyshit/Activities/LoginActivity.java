@@ -1,6 +1,5 @@
 package com.example.philipp.fundmyshit.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.philipp.fundmyshit.HelperClass.HelperClass;
 import com.example.philipp.fundmyshit.R;
 
 import org.apache.http.NameValuePair;
@@ -60,28 +60,25 @@ public class LoginActivity extends AppCompatActivity {
                 stringEmail = email.getText().toString();
                 stringPassword = password.getText().toString();
                 if(stringEmail.equals("") && stringPassword.equals("")){
-                    sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt("sessionUserID", 1); //write a method to obtain current user ID
-                    editor.commit();
-                    startActivity(new Intent(x.getContext(), MainActivity.class));
+                    Intent intent = new Intent(x.getContext(),MainActivity.class);
+                    intent.putExtra("userID", 1);
+                    startActivity(intent);
                 }
                 errorEmail.setVisibility(View.INVISIBLE);
                 errorPassword.setVisibility(View.INVISIBLE);
 
-                String url = "https://fundmyshit.herokuapp.com/login?email=" + email +"&password=" + password;
+                String url = "https://fundmyshit.herokuapp.com/login";
 
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("email", stringEmail));
                 params.add(new BasicNameValuePair("password", stringPassword));
 
-                int userID = 1;
+                int userID = Integer.parseInt(HelperClass.doPostRequest(url, params));
+                System.out.println("LOGIN userID: "+userID);
                 if (userID != 0) {
-                    sharedPref = LoginActivity.this.getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt(getString(R.string.sessionUserID), userID); //write a method to obtain current user ID
-                    editor.commit();
-                    startActivity(new Intent(x.getContext(), MainActivity.class));
+                    Intent intent = new Intent(x.getContext(),MainActivity.class);
+                    intent.putExtra("userID", userID);
+                    startActivity(intent);
                 } else {
                     errorPassword.setVisibility(View.VISIBLE);
                 }
