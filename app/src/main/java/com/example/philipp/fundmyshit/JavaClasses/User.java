@@ -5,8 +5,7 @@ package com.example.philipp.fundmyshit.JavaClasses;
 public class User {
 
     private String email;
-    private String forename;
-    private String surname;
+    private String name;
 
 
     private int userID;
@@ -17,9 +16,8 @@ public class User {
     }
 
     //constructor
-    public User(String forename, String surname, String email){
-        this.forename = forename;
-        this.surname = surname;
+    public User(String name, String email){
+        this.name = name;
         this.email = email;
 
     }
@@ -27,12 +25,7 @@ public class User {
     public int getUserID(){
         return this.userID;
     }
-    public String getForename(){
-        return this.forename;
-    }
-    public String getSurname(){
-        return this.surname;
-    }
+    public String getName(){return this.name;}
     public String getEmail(){
         return this.email;
     }

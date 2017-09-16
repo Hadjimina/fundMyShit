@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="com.example.philipp.fundmyshit.activities.SignupActivity">
 
     <TextView
@@ -18,15 +19,16 @@
         android:id="@+id/new_account"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Neuer Account"
+        android:text="New account"
         android:textSize="16pt"
+        android:background="@color/colorAccent"
         android:textStyle="bold"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Vorname"
+        android:hint="Username"
         android:ems="10"
         android:layout_below="@+id/new_account"
         android:layout_centerHorizontal="true"
@@ -36,8 +38,8 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Name"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
         android:ems="10"
         android:id="@+id/editName"
         android:layout_below="@+id/editVorname"
@@ -48,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Passwort"
+        android:hint="Password"
         android:ems="10"
         android:layout_below="@+id/editName"
         android:layout_alignStart="@+id/editName"
@@ -59,36 +61,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Erneut Passwort"
+        android:hint="Password again"
         android:ems="10"
         android:layout_below="@+id/editPassword"
         android:layout_alignStart="@+id/editPassword"
         android:layout_marginTop="20dp"
         android:id="@+id/editCheckPassword" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Email"
-        android:ems="10"
-        android:layout_below="@+id/editCheckPassword"
-        android:layout_alignEnd="@+id/editCheckPassword"
-        android:layout_marginTop="20dp"
-        android:id="@+id/editEmail" />
 
     <Button
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:text="Fertig!"
-        android:textSize="24dp"
-        android:minWidth="88dp"
-        android:height="36dp"
+        android:text="Sign up!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/editEmail"
-        android:elevation="2dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/editCheckPassword"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
         android:id="@+id/button"
         />
 
