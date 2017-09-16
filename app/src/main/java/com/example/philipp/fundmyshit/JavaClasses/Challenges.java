@@ -8,10 +8,7 @@ public class Challenges {
     public String title,description, videoLink;
     public int userID, price, currentPrice;
 
-    private int[] Icons = {
-            R.drawable.default_img
 
-    };
 
     public Challenges(String title, int userID, int price, String description){
         this.title = title;
