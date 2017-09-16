@@ -1,4 +1,8 @@
 package com.example.philipp.fundmyshit.Adapters;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Challenges> mDataset;
+    private Context mContext;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
@@ -40,6 +45,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
+        mContext = parent.getContext();
+
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_item, parent, false);
 
@@ -50,10 +57,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mTitle.setText(mDataset.get(position).title);
-        //holder.mTextViewDesc.setText(mDataset.get(position).desc);
-        //holder.mImageView.setImageResource(mDataset.get(position).coverImg);
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        Challenges currentChallenge = mDataset.get(position);
+        holder.mTitle.setText(currentChallenge.title);
+        holder.mDesc.setText(currentChallenge.description);
+        holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
+
+
+        holder.mButtonPledge.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                    }
+                });
+                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+            });
     }
 
     @Override

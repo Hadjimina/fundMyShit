@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(v.getContext(), SignupActivity.class));
             }
         });
-        
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
