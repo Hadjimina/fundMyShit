@@ -80,17 +80,13 @@ public class MainActivity extends AppCompatActivity {
         sessionUserID = getIntent().getIntExtra("userID", 1);
 
 
-
         //fab setup & onclick
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        final EditText title_input = (EditText) findViewById(R.id.title_input);
-        final EditText description = (EditText) findViewById(R.id.description);
-        final EditText shmeckles = (EditText) findViewById(R.id.shmeckles);
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
 
 
 
@@ -104,9 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 final EditText title_input = (EditText) test.findViewById(R.id.title_input);
                 final EditText description = (EditText) test.findViewById(R.id.description);
                 final EditText shmeckles = (EditText) test.findViewById(R.id.shmeckles);
-                System.out.println("TITLE ADRESS "+title_input);
-                System.out.println("DESC ADRESS "+description);
-                System.out.println("SHMECKLES ADRESS "+shmeckles);
+
 
                 builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
@@ -121,18 +115,20 @@ public class MainActivity extends AppCompatActivity {
                         params.add(new BasicNameValuePair("title", titleString));
                         params.add(new BasicNameValuePair("description", descriptionString));
                         params.add(new BasicNameValuePair("price", shmecklesString));
-                        params.add(new BasicNameValuePair("id", sessionUserID.toString()));
+                        params.add(new BasicNameValuePair("challenger_id", sessionUserID.toString()));
 
 
+                        helperClass.doPostRequest(url,params);
 
+                        adapter.notifyDataSetChanged();
                     }
                 })
-                        .setNegativeButton("Chancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
