@@ -81,7 +81,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         this.helperClass = new HelperClass();
-        System.out.println("WHICH FRAGMENT: "+id);
         updateDataSet(this.id);
         final Challenges currentChallenge = mDataset.get(position);
         holder.mTitle.setText(currentChallenge.title);
