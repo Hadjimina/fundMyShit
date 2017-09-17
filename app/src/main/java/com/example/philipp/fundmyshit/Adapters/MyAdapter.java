@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.philipp.fundmyshit.Activities.MainActivity;
@@ -39,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         CardView mCardView;
         TextView mTitle,mDesc, mPriceFraction;
         Button mPledgeButton, mWatchButton;
-
+        ProgressBar mProgressBar;
         MyViewHolder(View v) {
             super(v);
 
@@ -49,6 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mDesc = (TextView) v.findViewById(R.id.desc);
             mPriceFraction = (TextView) v.findViewById(R.id.priceFraction);
             mWatchButton = (Button) v.findViewById(R.id.watchButton);
+            mProgressBar = (ProgressBar) v.findViewById(R.id.determinateBar);
         }
 
     }
@@ -85,9 +87,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mTitle.setText(currentChallenge.title);
         holder.mDesc.setText(currentChallenge.description);
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
-        
+
+        int progress = (currentChallenge.currentPrice)/(currentChallenge.price) * 100;
+        holder.mProgressBar.setProgress(progress);
+
         if (currentChallenge.currentPrice>=currentChallenge.price){
             holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
+            holder.mProgressBar.getIndeterminateDrawable().setColorFilter(0xFF00FF00 ,android.graphics.PorterDuff.Mode.MULTIPLY);
+
         }
         if(!currentChallenge.videoLink.equals("null") && !currentChallenge.videoLink.isEmpty() && currentChallenge.currentPrice>= currentChallenge.price){
             holder.mPledgeButton.setVisibility(View.INVISIBLE);
