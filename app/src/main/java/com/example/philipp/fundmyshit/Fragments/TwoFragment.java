@@ -61,7 +61,7 @@ public class TwoFragment extends Fragment{
     //update currentLessons list & notify adapter of the change
     public void updateCards(){
         //get currentLessons data from MainActivity
-        myFundedChallenges = helperClass.getFeedChallenges();
+        myFundedChallenges = helperClass.getMyFundedChallenges();
         adapter.notifyDataSetChanged();
 
     }

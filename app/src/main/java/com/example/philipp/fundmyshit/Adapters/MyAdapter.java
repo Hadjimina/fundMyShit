@@ -81,15 +81,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         this.helperClass = new HelperClass();
-        System.out.println("WHICH FRAGMENT: "+id);
         updateDataSet(this.id);
         final Challenges currentChallenge = mDataset.get(position);
         holder.mTitle.setText(currentChallenge.title);
         holder.mDesc.setText(currentChallenge.description);
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
-
-        int progress =(currentChallenge.currentPrice) * 100/(currentChallenge.price) ;
-        holder.mProgressBar.setProgress(progress);
 
         if (currentChallenge.currentPrice>=currentChallenge.price){
             holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
