@@ -59,7 +59,7 @@ public class HelperClass extends Activity{
         return returnString;
     }
 
-    public String doGetRequest(String url){
+    public static String doGetRequest(String url){
         String returnString = "";
         try {
             returnString =  new getData().execute(url).get();
@@ -168,7 +168,7 @@ public class HelperClass extends Activity{
     }
 
 
-    private class getData extends AsyncTask<String, String, String> {
+    private static class getData extends AsyncTask<String, String, String> {
 
         // these Strings / or String are / is the parameters of the task, that can be handed over via the excecute(params) method of AsyncTask
         protected String doInBackground(String... params) {
