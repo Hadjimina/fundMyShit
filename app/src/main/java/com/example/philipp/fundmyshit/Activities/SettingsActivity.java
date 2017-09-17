@@ -2,6 +2,8 @@ package com.example.philipp.fundmyshit.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.example.philipp.fundmyshit.HelperClass.HelperClass;
@@ -18,6 +20,12 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        setTheme(R.style.MyMaterialTheme_Base);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         int userID = MainActivity.getSessionUserID();
         String url = "https://fundmyshit.herokuapp.com/users/" + userID;
         try {
@@ -33,5 +41,12 @@ public class SettingsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 }

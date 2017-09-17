@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<android.support.design.widget.AppBarLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    android:id="@+id/appBarLayout">
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        app:titleTextColor="@android:color/white"
+        android:layout_marginBottom="26dp">
+
+    </android.support.v7.widget.Toolbar>
 
 
-</android.support.design.widget.AppBarLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,7 +26,8 @@ android:layout_height="match_parent">
         android:layout_marginLeft="20dp"
         android:layout_gravity="center"
         app:border_width="2dp"
-        app:border_color="#FF000000"/>
+        app:border_color="#FF000000"
+        android:paddingTop="32dp"/>
 
 
     <View
@@ -31,17 +35,12 @@ android:layout_height="match_parent">
         android:layout_height="1dp"
         android:layout_marginTop="125dp"
         android:layout_marginLeft="125dp"
+        android:paddingTop="32dp"
         android:background="#000"
         android:id="@+id/view" />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/cardview_shadow_start_color"
-        android:text="FundMyShit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+
 
     <TextView
         android:id="@+id/username"
@@ -51,11 +50,11 @@ android:layout_height="match_parent">
         android:layout_alignBottom="@+id/view"
         android:layout_toEndOf="@+id/profile_image"
         android:layout_marginBottom="18dp"
+        android:paddingTop="32dp"
+        android:paddingLeft="8dp"
         android:textSize="30dp"
         android:textColor="@color/primary_text"
         />
-
-
 
     <TextView
         android:layout_width="200dp"
@@ -66,7 +65,8 @@ android:layout_height="match_parent">
         android:layout_marginTop="70dp"
         android:layout_below="@+id/profile_image"
         android:layout_centerHorizontal="true"
-        android:id="@+id/balance" />
+        android:id="@+id/balance"
+        android:paddingTop="32dp"/>
 
     <ImageView
         android:layout_width="50dp"
@@ -74,6 +74,8 @@ android:layout_height="match_parent">
         android:src="@drawable/coin"
         android:layout_marginEnd="40dp"
         android:layout_alignTop="@+id/balance"
-        android:layout_alignEnd="@+id/username" />
+        android:layout_alignEnd="@+id/username"
+        android:paddingTop="32dp"
+        android:paddingLeft="16dp"/>
 
 </RelativeLayout>
