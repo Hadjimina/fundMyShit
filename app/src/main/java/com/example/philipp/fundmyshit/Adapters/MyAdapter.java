@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.philipp.fundmyshit.Activities.MainActivity;
@@ -39,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         CardView mCardView;
         TextView mTitle,mDesc, mPriceFraction;
         Button mPledgeButton, mWatchButton;
-
+        ProgressBar mProgressBar;
         MyViewHolder(View v) {
             super(v);
 
@@ -49,6 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mDesc = (TextView) v.findViewById(R.id.desc);
             mPriceFraction = (TextView) v.findViewById(R.id.priceFraction);
             mWatchButton = (Button) v.findViewById(R.id.watchButton);
+            mProgressBar = (ProgressBar) v.findViewById(R.id.determinateBar);
         }
 
     }
@@ -79,7 +81,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         this.helperClass = new HelperClass();
-        System.out.println("WHICH FRAGMENT: "+id);
         updateDataSet(this.id);
         final Challenges currentChallenge = mDataset.get(position);
         holder.mTitle.setText(currentChallenge.title);
@@ -88,10 +89,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         if (currentChallenge.currentPrice>=currentChallenge.price){
             holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
+
         }
         if(!currentChallenge.videoLink.equals("null") && !currentChallenge.videoLink.isEmpty() && currentChallenge.currentPrice>= currentChallenge.price){
             holder.mPledgeButton.setVisibility(View.INVISIBLE);
-
+            holder.mWatchButton.setVisibility(View.VISIBLE);
             holder.mWatchButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 

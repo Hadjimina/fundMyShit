@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
                         String titleString = title_input.getText().toString();
                         String descriptionString = description.getText().toString();
                         String shmecklesString = shmeckles.getText().toString();
-                        System.out.println("STRINGS: "+titleString+descriptionString+shmecklesString);
 
                         String url = "https://fundmyshit.herokuapp.com/challenges";
                         List<NameValuePair> params = new ArrayList<NameValuePair>();

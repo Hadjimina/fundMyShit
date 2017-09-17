@@ -2,6 +2,7 @@ package com.example.philipp.fundmyshit.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                signup.setTextColor(Color.parseColor("#ddcece"));
                 startActivity(new Intent(v.getContext(), SignupActivity.class));
             }
         });
@@ -57,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View x) {
-                //get user input
+                login.setTextColor(Color.parseColor("#ddcece"));
                 stringEmail = email.getText().toString();
                 stringPassword = password.getText().toString();
                 if(stringEmail.equals("") && stringPassword.equals("")){

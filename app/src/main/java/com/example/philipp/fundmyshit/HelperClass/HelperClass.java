@@ -2,7 +2,6 @@ package com.example.philipp.fundmyshit.HelperClass;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.philipp.fundmyshit.Activities.MainActivity;
 import com.example.philipp.fundmyshit.JavaClasses.Challenges;
@@ -80,14 +79,11 @@ public class HelperClass extends Activity{
         String typeOfReq = "GET";
         try {
             String returnString = new getData().execute(url,typeOfReq).get();
-            System.out.println("RETURNSTRING: "+returnString);
 
             JSONArray jsonArray = new JSONArray(returnString);
             ArrayList<Challenges> feedChallenges = parseChallenges(jsonArray);
 
-            for (Challenges c : feedChallenges){
-                Log.i("asdf1", String.valueOf(c.challengeID));
-            }
+
 
 
             return feedChallenges;
@@ -105,7 +101,6 @@ public class HelperClass extends Activity{
 
     public ArrayList<Challenges> getMyFundedChallenges(){
         int sessionUserID = MainActivity.getSessionUserID();
-        System.out.println("FUNDED sessionID: "+sessionUserID);
         String url = "https://fundmyshit.herokuapp.com/payments/" + sessionUserID + "/payed_challenges";
         String typeOfReq = "GET";
         try {
@@ -132,7 +127,6 @@ public class HelperClass extends Activity{
 
         try {
             String returnString = new getData().execute(url,typeOfReq).get();
-            System.out.println("RETURNSTRING: "+returnString);
             JSONArray jsonArray = new JSONArray(returnString);
             ArrayList<Challenges> personalChallenges = parseChallenges(jsonArray);
             return personalChallenges;
@@ -195,7 +189,6 @@ public class HelperClass extends Activity{
 
             }catch (Exception e){
                 e.printStackTrace();
-                Log.e("ERROR", "error in get");
             }
 
             return result.toString();
@@ -218,7 +211,6 @@ public class HelperClass extends Activity{
 
             String urlValue = params[0];
             String urlParameters = params[1];
-            Log.i("params",urlParameters);
 
             StringBuilder result= new StringBuilder();
             try {
@@ -245,7 +237,6 @@ public class HelperClass extends Activity{
 
             }catch (Exception e){
                 e.printStackTrace();
-                Log.e("ERROR","error in post");
             }
 
             return result.toString();
