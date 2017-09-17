@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--TODO change hardcoded string to use @string in resources-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activitylogin"
     android:layout_width="match_parent"
@@ -12,25 +13,23 @@
     android:background="@drawable/background"
     tools:context="com.example.philipp.fundmyshit.activities.LoginActivity">
 
-    <TextView
-        android:id="@+id/loginText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        app:srcCompat="@drawable/fundmyshit"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:text="FundMyShit"
-        android:textSize="16pt"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:layout_marginTop="30dp"
+        android:id="@+id/shit" />
+
 
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginText"
+        android:layout_below="@+id/shit"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="80dp"
         android:ems="15"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -84,9 +83,9 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:text="Login"
         android:layout_above="@+id/signup"
-        android:layout_alignParentStart="true"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="17dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
+
 
 
     <Button
@@ -101,9 +100,10 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:text="@string/sign_up"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="36dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"/>
+
+
 
 
 </RelativeLayout>
