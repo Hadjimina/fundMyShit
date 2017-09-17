@@ -49,7 +49,7 @@ public class OneFragment extends Fragment{
         //get currentLessons data from MainActivity
 
         feedChallenges = helperClass.getFeedChallenges();
-        adapter = new MyAdapter(feedChallenges);
+        adapter = new MyAdapter(feedChallenges, 0);
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

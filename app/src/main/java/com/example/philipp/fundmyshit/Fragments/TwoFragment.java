@@ -48,8 +48,8 @@ public class TwoFragment extends Fragment{
         //get currentLessons data from MainActivity
 
 
-        myFundedChallenges = helperClass.getMyFundedChallenges(getActivity());
-        adapter = new MyAdapter(myFundedChallenges);
+        myFundedChallenges = helperClass.getMyFundedChallenges();
+        adapter = new MyAdapter(myFundedChallenges,1);
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

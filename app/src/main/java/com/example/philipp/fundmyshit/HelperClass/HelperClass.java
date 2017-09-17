@@ -103,7 +103,7 @@ public class HelperClass extends Activity{
 
     }
 
-    public ArrayList<Challenges> getMyFundedChallenges(Activity a){
+    public ArrayList<Challenges> getMyFundedChallenges(){
         int sessionUserID = MainActivity.getSessionUserID();
         System.out.println("FUNDED sessionID: "+sessionUserID);
         String url = "https://fundmyshit.herokuapp.com/payments/" + sessionUserID + "/payed_challenges";
@@ -125,7 +125,7 @@ public class HelperClass extends Activity{
 
     }
 
-    public ArrayList<Challenges> getPersonalChallenges(Activity a){
+    public ArrayList<Challenges> getPersonalChallenges(){
         int sessionUserID = MainActivity.getSessionUserID();
         String url = "https://fundmyshit.herokuapp.com/users/" + sessionUserID + "/challenges";
         String typeOfReq = "GET";

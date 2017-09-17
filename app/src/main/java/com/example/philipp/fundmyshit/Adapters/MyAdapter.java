@@ -33,6 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Challenges> mDataset;
     private Context mContext;
     private HelperClass helperClass;
+    private int id;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
@@ -53,9 +54,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-    public MyAdapter(ArrayList<Challenges>myDataset) {
+    public MyAdapter(ArrayList<Challenges>myDataset, int id) {
         mDataset = myDataset;
+        this.id = id;
     }
+
 
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
@@ -75,6 +78,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
+        this.helperClass = new HelperClass();
+        System.out.println("WHICH FRAGMENT: "+id);
+        updateDataSet(this.id);
         final Challenges currentChallenge = mDataset.get(position);
         holder.mTitle.setText(currentChallenge.title);
         holder.mDesc.setText(currentChallenge.description);
@@ -99,7 +105,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
 
         //get Helper class object
-        this.helperClass = new HelperClass();
         //OUR OWN CHALLENGES => UPLOAD VIDEO
         if (currentChallenge.userID == MainActivity.getSessionUserID()){
             holder.mPledgeButton.setText("Upload video");
@@ -251,5 +256,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         mDataset = listCopy;
         notifyDataSetChanged();
+    }
+
+    private void updateDataSet(int id){
+        if(id == 0){
+            mDataset = helperClass.getFeedChallenges();
+        }
+        else if(id == 1){
+            mDataset = helperClass.getMyFundedChallenges();
+        }
+        else if (id == 2){
+            mDataset = helperClass.getPersonalChallenges();
+        }
     }
 }

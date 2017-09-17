@@ -47,8 +47,8 @@ public class ThreeFragment extends Fragment{
 
         //get currentLessons data from MainActivity
 
-        personalChallenges = helperClass.getPersonalChallenges(getActivity());
-        adapter = new MyAdapter(personalChallenges);
+        personalChallenges = helperClass.getPersonalChallenges();
+        adapter = new MyAdapter(personalChallenges,2);
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -60,7 +60,7 @@ public class ThreeFragment extends Fragment{
     //update currentLessons list & notify adapter of the change
     public void updateCards(){
         //get currentLessons data from MainActivity
-        personalChallenges = helperClass.getPersonalChallenges(getActivity());
+        personalChallenges = helperClass.getPersonalChallenges();
         adapter.notifyDataSetChanged();
 
     }
