@@ -90,7 +90,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
         if(!currentChallenge.videoLink.equals("null") && !currentChallenge.videoLink.isEmpty() && currentChallenge.currentPrice>= currentChallenge.price){
             holder.mPledgeButton.setVisibility(View.INVISIBLE);
-
+            holder.mWatchButton.setVisibility(View.VISIBLE);
             holder.mWatchButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
