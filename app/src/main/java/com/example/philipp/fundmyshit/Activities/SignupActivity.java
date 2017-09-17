@@ -7,6 +7,7 @@ package com.example.philipp.fundmyshit.Activities;
 //STILL THE OLD SIGNUP
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -69,6 +70,7 @@ public class SignupActivity extends AppCompatActivity {
         submit = (Button) findViewById(R.id.button);
         submit.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
+                submit.setTextColor(Color.parseColor("#ddcece"));
                 //set all error messages invisible
                 errorForename.setVisibility(View.INVISIBLE);
                 errorPassword1.setVisibility(View.INVISIBLE);

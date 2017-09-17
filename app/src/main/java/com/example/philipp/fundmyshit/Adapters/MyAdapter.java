@@ -88,12 +88,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mDesc.setText(currentChallenge.description);
         holder.mPriceFraction.setText(currentChallenge.currentPrice+" / "+ currentChallenge.price);
 
-        int progress = (currentChallenge.currentPrice)/(currentChallenge.price) * 100;
+        int progress =(currentChallenge.currentPrice) * 100/(currentChallenge.price) ;
         holder.mProgressBar.setProgress(progress);
 
         if (currentChallenge.currentPrice>=currentChallenge.price){
             holder.mPriceFraction.setTextColor(Color.parseColor("#8BC34A"));
-            holder.mProgressBar.getIndeterminateDrawable().setColorFilter(0xFF00FF00 ,android.graphics.PorterDuff.Mode.MULTIPLY);
 
         }
         if(!currentChallenge.videoLink.equals("null") && !currentChallenge.videoLink.isEmpty() && currentChallenge.currentPrice>= currentChallenge.price){
